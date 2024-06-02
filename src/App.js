@@ -1,13 +1,20 @@
-import Login from './Views/Pages/Login';
+import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
+// import TrendingPlaylists from './Views/Pages/TrendingPlaylists';
+// import YourPlaylists from './Views/Pages/YourPlaylists';
+// import Profile from './Views/Pages/Profile';
+import Carousel from './Views/Pages/Carousel';
+import Test from './Views/Pages/Test';
 
 function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <Login/>
-      </header>
+      {/* <TrendingPlaylists/> */}
+      {/* <YourPlaylists/> */}
+      {/* <Profile/> */}
+      {/* <Carousel/> */}
+      <Test/>
     </div>
   );
 }

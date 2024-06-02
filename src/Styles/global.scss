@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+    font-family: "Kanit", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: $secondary;
+    overscroll-behavior-x: none;
+    overscroll-behavior-y: auto;
+    color: $secondary;
+    background-color: black;
+}
+
+.container {
+    max-width: unset !important;
+    padding: 2rem !important;
+    margin: 0 !important;
+}
+
+button {
+    background-color: $primary !important;
+}
+  
+a {
+    color: $primary !important;
+}
+
+a:hover {
+    color: $tertiary;
+}
+
+.App-header {
+    min-height: 100vh;
+}
+
+.wallpaper {
+    object-fit: cover;
+    z-index: -1;
+}
+
+.fit-content {
+    width: fit-content !important;
+}

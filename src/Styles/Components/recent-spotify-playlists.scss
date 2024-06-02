@@ -1,0 +1,15 @@
+#recent-spotify-playlists {
+    background-color: black;
+    border-radius: 5px;
+    width: 50%;
+    height: fit-content !important;
+    padding: 10px 4px;
+
+    h2 {
+        color: $spotify;
+    }
+
+    .playlist {
+        height: fit-content !important;
+    }
+}

@@ -1,0 +1,123 @@
+#carousel {
+
+    .page-color {
+        &.TrendingPlaylists {
+          --page-color: #FFBEBE;
+        }
+      
+        &.YourPlaylists {
+          --page-color: #E4A265;
+        }
+      
+        &.Profile {
+          --page-color: #F34C4C;
+        }
+    }
+
+    .front-page-wrapper {
+        height: 100vh !important;
+    }
+
+    h2 {
+        font-size: 96px;
+        font-weight: bold !important;
+        color: var(--page-color);
+    }
+
+    h3 {
+        font-size: 64px;
+        font-weight: bold !important;
+        color: var(--page-color);
+    }
+
+    .nav-left::before {
+        content: " ";
+        border-left: 15px solid #fff;
+        border-bottom: 15px solid #ffffff51;
+        width: 30px;
+        height: 30px;
+        transform: rotate(45deg);
+        cursor: pointer;
+        display: block;
+    }
+    
+    .nav-right::before {
+        content: " ";
+        border-right: 15px solid #ffffff;
+        border-top: 15px solid #ffffff51;
+        width: 30px;
+        height: 30px;
+        transform: rotate(45deg);
+        cursor: pointer;
+        display: block;
+    }
+
+    .content-frame {
+        background-color: black;
+        border-radius: 10px;
+        padding: 2rem;
+        overflow-y: scroll;
+    }
+
+    .playlist-tile {
+        background-color: #3b3b3b;
+        height: 200px;
+        border-radius: 10px;
+    }
+
+    .playlist-cover {
+        aspect-ratio: 1 / 1;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    .playlist-headline-combo { 
+        h3, p {
+            width: fit-content;
+        }
+
+        h3 {
+            color: #C9C5C5;
+        }
+
+        p {
+            color: #818181;
+        }
+    }
+
+    .add-playlists-wrapper {
+        div {
+            height: 10rem;
+            width: 10rem;
+            background-color: black;
+            border-radius: 10px;
+            font-size: 96px;
+        }
+    }
+
+    .profile-description {
+        img {
+            height: 15rem;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        h3 {
+            width: fit-content;
+        }
+
+        b {
+            font-size: 24px;
+            color: #474747;
+        }
+    }
+
+    .inactive {
+        transform: translateX(2500px);
+    }
+
+    .transition {
+        transition: 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+}
+  

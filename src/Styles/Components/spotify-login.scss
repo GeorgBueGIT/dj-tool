@@ -1,0 +1,12 @@
+#spotify-login {
+    Button, #signInButton {
+        background-color: $secondary !important;
+        color: $tertiary !important;
+        text-decoration: none !important;
+    }
+
+    Button:hover, #signInButton:hover {
+        background-color: black !important;
+        color: $secondary !important;
+    }
+}

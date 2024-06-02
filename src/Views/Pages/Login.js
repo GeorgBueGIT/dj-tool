@@ -1,25 +1,68 @@
-// import './App.css';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Button, Form, Input} from 'antd';
+import HeaderMinimal from '../Partials/HeaderMinimal';
+import Wallpaper from '../../LoginWallpaper.jpg';
 
-function Login() {
+const Login = () => {
+  const onFinish = (values) => {
+    console.log('Received values of form: ', values);
+  };
   return (
-    <div className="Login container">
-      <form className="row">
-        <div className="col-lg-6 offset-lg-3 col-10">
+    <div className='login d-flex justify-content-center align-items-center flex-column'>
+     <img className="position-fixed wallpaper" src={Wallpaper} alt="Wallpaper" />
+    <HeaderMinimal/>
+    <div className='introduction px-4 col-12 col-md-6 mb-5 text-center'>
+      <h2> Melde dich jetzt an! </h2>
+      <p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, 
+        sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, 
+        sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. 
+        Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. 
+      </p>
+    </div>
+    <Form
+      name="normal_login"
+      className="login-form"
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+    >
+      <Form.Item
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Username!',
+          },
+        ]}
+      >
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      </Form.Item>
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Password!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+        />
+      </Form.Item>
 
-          <div className="d-flex justify-content-between pb-3">
-            <label className=""> Username</label>
-            <input className="" type="text" name="username" />
-          </div>
-
-          <div className="d-flex justify-content-between pb-3">
-            <label className=""> Password </label>
-            <input className="" type="text" name="username" />
-          </div>
-          <input className="" type="submit" value="Login" />
-          </div>
-      </form>
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button me-5">
+          Log in
+        </Button>
+        Or <a href="/">register now!</a>
+      </Form.Item>
+    </Form>
     </div>
   );
-}
-
+};
 export default Login;
+

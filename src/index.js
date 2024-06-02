@@ -1,13 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {ConfigProvider } from 'antd';
+import './Styles/style.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
+    <ConfigProvider
+    theme={{
+      token: {
+        fontFamily: "Kanit"
+      }
+    }}
+    >    
     <App />
+    </ConfigProvider>
   </React.StrictMode>
 );
 

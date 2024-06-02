@@ -1,0 +1,23 @@
+.song-list {
+    background-color: $secondary;
+    border-radius: 3px;
+
+    h2 {
+        color: $tertiary;
+        font-weight: bold;
+    }
+
+    h4 {
+        color: $tertiary;
+        font-weight: 600;
+    }
+
+    b {
+        color: $tertiary;
+        font-weight: 600;
+    }
+
+    a {
+        color: $tertiary !important;
+    }
+}
