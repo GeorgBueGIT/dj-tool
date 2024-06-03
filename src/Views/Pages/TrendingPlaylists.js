@@ -5,7 +5,7 @@ function TrendingPlaylists() {
   return (
 
 <>
-            <div className='col-5'>
+            <div className='col-5 offset-1'>
                 <h2 className='mb-3'> Inspire yourself - Trending Playlists </h2>
                 <h3> Most Hyped Playlists this week </h3>
             </div>

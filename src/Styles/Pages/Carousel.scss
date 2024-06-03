@@ -40,7 +40,21 @@
         cursor: pointer;
         display: block;
     }
+
+    .nav-left {
+        position: absolute;
+        top: 50%;
+        left: 2%;
+        z-index: 1000;
+    } 
     
+    .nav-right {
+        position: absolute;
+        top: 50%;
+        right: 2%;
+        z-index: 1000;
+    }
+
     .nav-right::before {
         content: " ";
         border-right: 15px solid #ffffff;

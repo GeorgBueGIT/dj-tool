@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import YourPlaylists from './Views/Pages/YourPlaylists';
 // import Profile from './Views/Pages/Profile';
 import Carousel from './Views/Pages/Carousel';
-import Test from './Views/Pages/Test';
 
 function App() {
 
@@ -13,8 +12,7 @@ function App() {
       {/* <TrendingPlaylists/> */}
       {/* <YourPlaylists/> */}
       {/* <Profile/> */}
-      {/* <Carousel/> */}
-      <Test/>
+      <Carousel/>
     </div>
   );
 }

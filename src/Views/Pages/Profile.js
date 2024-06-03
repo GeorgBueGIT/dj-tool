@@ -5,7 +5,7 @@ import ProfileDescription from '../Components/ProfileDescription';
 function Profile({status = 'inactive'}) {
 
     return (
-        <div className='col-10 h-100'>
+        <div className='col-10 h-100 offset-1'>
             <div className={`transition row h-100 d-flex align-items-center ${status}`}>
                 <div className='col-6'>
                     <h2 className='mb-3'> Your Profile </h2>

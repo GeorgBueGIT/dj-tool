@@ -6,7 +6,7 @@ import Soundcloud from '../../resources/Logos/Soundcloud.jpg';
 function TrendingPlaylists() {
   return (
     <>
-            <div className='col-5'>
+            <div className='col-5 offset-1'>
                 <h2 className='mb-3'> Edit your Playlists </h2>
                 <h3> Or Create a new one </h3>
                 <div className='add-playlists-wrapper d-flex gap-4 mt-5'>
