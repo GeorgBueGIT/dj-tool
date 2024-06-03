@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import TrendingPlaylists from './TrendingPlaylists';
-import YourPlaylists from './YourPlaylists';
-import Profile from './Profile';
+import TrendingPlaylists from '../Partials/TrendingPlaylists';
+import YourPlaylists from '../Partials/YourPlaylists';
+import Profile from '../Partials/Profile';
 import Header from '../Partials/Header';
 
 import WallPaper1 from '../../WallPaper1.png';
@@ -53,7 +53,7 @@ export default function Carousel() {
         prevArrow: <SamplePrevArrow />,
         beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex)
       };
-      
+
       return (
         <div className='carousel-page position-relative' id="carousel">
           <Header activeLink={currentSlide}/>

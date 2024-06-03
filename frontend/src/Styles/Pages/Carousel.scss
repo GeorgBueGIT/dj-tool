@@ -1,17 +1,15 @@
 #carousel {
 
-    .page-color {
-        &.TrendingPlaylists {
-          --page-color: #FFBEBE;
-        }
-      
-        &.YourPlaylists {
-          --page-color: #E4A265;
-        }
-      
-        &.Profile {
-          --page-color: #F34C4C;
-        }
+    .trending-playlists-page {
+        --page-color: #FFBEBE;
+    }
+
+    .your-playlists-page {
+        --page-color: #E4A265;
+    }
+
+    .profile-page {
+        --page-color: #F34C4C;
     }
 
     .front-page-wrapper {

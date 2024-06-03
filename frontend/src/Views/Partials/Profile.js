@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PlaylistTile from '../Components/PlaylistTile';
 import ProfileDescription from '../Components/ProfileDescription';
 
-function Profile({status = 'inactive'}) {
+function Profile() {
 
     return (
-        <div className='col-10 h-100 offset-1'>
-            <div className={`transition row h-100 d-flex align-items-center ${status}`}>
+        <div className='col-10 h-100 offset-1 profile-page'>
+            <div className='row h-100 d-flex align-items-center'>
                 <div className='col-6'>
                     <h2 className='mb-3'> Your Profile </h2>
                     <h3> See what other people see </h3>   

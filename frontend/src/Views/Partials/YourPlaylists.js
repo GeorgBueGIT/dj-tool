@@ -5,8 +5,9 @@ import Soundcloud from '../../resources/Logos/Soundcloud.jpg';
 
 function TrendingPlaylists() {
   return (
-    <>
-            <div className='col-5 offset-1'>
+    <div className='col-10 h-100 offset-1 trending-playlists-page'>
+        <div className='row h-100 d-flex align-items-center'>
+            <div className='col-6'>
                 <h2 className='mb-3'> Edit your Playlists </h2>
                 <h3> Or Create a new one </h3>
                 <div className='add-playlists-wrapper d-flex gap-4 mt-5'>
@@ -19,7 +20,7 @@ function TrendingPlaylists() {
                     </div>
                 </div>
             </div>
-            <div className='col-5 h-100'>
+            <div className='col-6 h-100'>
                 <div className='content-frame mh-100 w-100 py-3'>
                   <PlaylistTile/>
                   <PlaylistTile/>
@@ -28,7 +29,8 @@ function TrendingPlaylists() {
                   <PlaylistTile/>
                 </div>
             </div>
-            </>
+          </div>
+      </div>
   );
 }
 
