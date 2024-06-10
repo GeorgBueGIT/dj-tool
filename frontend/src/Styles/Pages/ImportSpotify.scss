@@ -1,0 +1,35 @@
+#spotify-playlists-page  {
+
+    .front-page-wrapper {
+        height: 100vh !important;
+    }
+
+    .playlist-frame {
+        background-color: black;
+        border-radius: 10px;
+        padding: 2rem;
+        overflow-y: scroll;
+    }
+
+    .search-input {
+        background-color: rgb(44, 44, 44);
+        border: none;
+        color: rgb(255, 255, 255);
+        font-size: 24px;
+        font-weight: normal;
+    }
+
+    .search-input::placeholder {
+        color: #e0e0e0;
+    }
+
+    .back {
+        top: 50%;
+        left: 3%;
+    }
+
+    .save {
+        top: 50%;
+        right: 3%;
+    }
+}

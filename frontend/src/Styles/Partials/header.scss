@@ -7,8 +7,8 @@
 
     .white-box {
         background-color: white;
-        width: 120px;
-        height: 120px;
+        width: calc(40px + 4vw);
+        height: calc(40px + 4vw);
         border-radius: 10px;
     }
 
@@ -19,21 +19,36 @@
         border-radius: 10px;
     }
 
+    .white-box-small:hover {
+        cursor: pointer;
+    }
+
     .nav-links {
         a {
-            font-size: 24px;
-            color:  white !important;
+            font-size: calc(100% + .5vw);
             font-weight: bold;
+            font-family: "Black Ops One", system-ui;
         }
 
         .nav-active-box {
-            background-color: white;
-            border-radius: 10px;
-
             a {
-                color: var(--page-color) !important;
+                text-decoration: none;
+                color: orange !important;
             }
         }
+
+        a:not(.nav-active-box a) {
+            color:  white !important;
+        }
+
+        a:not(.nav-active-box a):hover{
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+
+    .ant-dropdown {
+        color: black !important;
     }
 }
 

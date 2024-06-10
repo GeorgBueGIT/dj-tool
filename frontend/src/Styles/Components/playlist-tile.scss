@@ -1,0 +1,60 @@
+#playlist-tile {
+    
+    background-color: #3b3b3b;
+    border-radius: 10px;
+
+    .playlist-cover {
+        aspect-ratio: 1 / 1 !important;
+        object-fit: cover;
+        border-radius: 10px;
+        max-height: 100%;
+    }
+
+    .playlist-headline-combo { 
+        h3, p {
+            width: fit-content;
+        }
+
+        h3 {
+            color: #C9C5C5;
+            font-family: "Black Ops One", system-ui;
+        }
+
+        p {
+            color: #818181;
+        }
+    }
+
+    .ant-progress-text {
+        display: none;
+    }
+
+    .ant-progress-success-bg {
+        background-color: #3b3b3b
+    }
+
+    .ant-progress-steps-item:not(.ant-progress-steps-item-active) {
+        background-color: rgb(43, 43, 43);
+    }
+
+
+    .ant-progress-steps-item {
+        background-color: #C9C5C5;
+    }
+
+    .custom-progress-outer {
+        width: 200px;
+        height:10px;
+        background-color: rgb(43, 43, 43);
+    }
+
+    .custom-progress-inner {
+        height:10px;
+        background-color: #C9C5C5;
+    }
+}
+
+#playlist-tile:hover {
+    background-color: #5a5a5a;
+    cursor: pointer;
+}

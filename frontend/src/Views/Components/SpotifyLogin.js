@@ -38,7 +38,7 @@ function GetFromSpotify({setToken}) {
   return (
     <div id="spotify-login" className='d-flex justify-content-center mb-3 mt-2'>
             {!token ?
-                <Button href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`} id="signInButton" type="primary" className='d-flex'>
+                <Button target="_blank" href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`} id="signInButton" type="primary" className='d-flex'>
                     <FontAwesomeIcon 
                         icon={faSpotify}
                         style={{ height: "24px", color: "#1DB954", marginRight: "8px"}} 

@@ -8,16 +8,15 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import {
   restrictToVerticalAxis,
-  restrictToWindowEdges,
 } from '@dnd-kit/modifiers';
-import Song from './Song';
+
+import Song from './SongTile';
 
 function SongList() {
   const [items, setItems] = useState([
@@ -38,19 +37,7 @@ function SongList() {
     })
   );
   return (
-    <div className="song-list container py-3 my-3 px-5">
-      <div className='list-header row'>
-        <div className='col-6'>
-          <h2 className=''> Deep House / Chill </h2>
-        </div>
-        <div className='col-6 d-flex justify-content-end'>
-          <a> back </a>
-        </div>
-        <div className='col'>
-          <h4 className='mb-5'> 128 - 140 bpm </h4>
-        </div>
-      </div>
-
+    <div className="song-list">
     <DndContext 
       sensors={sensors}
       collisionDetection={closestCenter}

@@ -1,51 +1,82 @@
-import React, { useState, useEffect } from 'react';
-import Header from '../Partials/Header';
-import SongList from '../Components/SongList';
-import Wallpaper from '../../LoginWallpaper.jpg';
-import SpotifyLogin from '../../Views/Components/SpotifyLogin';
-import RecentSpotifyPlaylistsView from '../Components/RecentSpotifyPlaylistsView';
-import RecentPlaylistsView from '../Components/RecentPlaylistsView';
+import React, { useState, useEffect, useRef } from "react";
+import TrendingPlaylists from "../Partials/TrendingPlaylists";
+import YourPlaylists from "../Partials/YourPlaylists";
+import Profile from "../Partials/Profile";
+import Header from "../Partials/Header";
+import Slider from "react-slick";
 
-
-function FrontPage() {
-
+export default function FrontPage() {
   const [headerHeight, setHeaderHeight] = useState(0);
-  const [token, setToken] = useState("");
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const sliderRef = useRef(null);
+
+  const pages = [
+    <TrendingPlaylists headerHeight={headerHeight}/>,
+    <YourPlaylists headerHeight={headerHeight}/>,
+    <Profile headerHeight={headerHeight}/>,
+  ];
 
   useEffect(() => {
-    const header = document.querySelector('.header');
+    const header = document.querySelector(".header");
     if (header) {
       const height = header.offsetHeight;
       setHeaderHeight(height);
     }
   }, []);
 
-  const frontPageStyle = {
-    paddingTop: `${headerHeight}px`,
+  function SampleNextArrow(props) {
+    const { onClick } = props;
+    return <div onClick={onClick} className="nav-right"></div>;
+  }
+
+  function SamplePrevArrow(props) {
+    const { onClick } = props;
+    return <div onClick={onClick} className="nav-left"></div>;
+  }
+
+  var settings = {
+    dots: false,
+    infinite: true,
+    speed: 750,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    beforeChange: (oldIndex, newIndex) => setCurrentSlide(newIndex),
   };
 
+  const navToSlide = (slideNr) => {
+    setCurrentSlide(slideNr);
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(slideNr);
+    }
+  }
+
   return (
-    <div className="front-page h-100 w-100">
-      <img className="position-fixed wallpaper" src={Wallpaper} alt="Wallpaper" />
-      <Header/>
-      <div style={frontPageStyle} className='container'>
-        <div className='frontpage-overview-container container'>
-          <div className='row'>
-            <div className='col-12'>
-              <SpotifyLogin setToken={setToken}/>
-            </div>
-            <div className='col-md-6 col-12'>
-              <RecentSpotifyPlaylistsView token={token}/>
-            </div>
-            <div className='col-md-6 col-12'>
-              <RecentPlaylistsView/>
-            </div>
+    <div className="carousel-page position-relative" id="carousel">
+      <Header activeLink={currentSlide} navToSlide={navToSlide} />
+      <Slider ref={sliderRef} {...settings}>
+        {pages.map((page, index) => (
+          <div key={index}>
+            <RenderPage key={index} page={page} headerHeight={headerHeight} />
           </div>
-        </div>    
-      </div>
-      
+        ))}
+      </Slider>
     </div>
   );
 }
 
-export default FrontPage;
+function RenderPage({ page, headerHeight }) {
+  return (
+    <div className="carousel-container">
+      <div className="front-page-wrapper w-100 page-color">
+        <div
+          className="px-5 pb-5 h-100"
+        >
+          <div className="row d-flex align-items-center h-100">{page}</div>
+        </div>
+      </div>
+    </div>
+  );
+}

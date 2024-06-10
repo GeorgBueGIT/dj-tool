@@ -1,8 +1,12 @@
 # frontend/Dockerfile
 FROM node:18-alpine
-WORKDIR /app
-COPY package.json .
+
+WORKDIR /code
+
+COPY public/ /code/public
+COPY src/ /code/src
+COPY package.json /code/
+
 RUN npm install
-COPY . .
-EXPOSE 3000
-CMD ["npm", "start"]
+
+CMD [ "npm", "start" ]

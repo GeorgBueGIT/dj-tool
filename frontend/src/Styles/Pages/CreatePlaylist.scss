@@ -1,0 +1,79 @@
+#create-playlist-page {
+
+    background-color: rgb(0, 0, 0);
+    background-image: url("../../resources//Wallpapers/background.jpg");
+    background-size: cover;
+
+    .playlist-frame {
+        background-color: black;
+        border-radius: 10px;
+        overflow-y: scroll;
+    }
+
+    .title-input {
+        background-color: transparent;
+        border: none;
+        font-family: "Black Ops One", system-ui;
+        font-size: calc(100% + 2.0vw);
+        color: $secondary;
+    }
+
+    .title-input::placeholder {
+        color: #aeaeae;
+      }
+
+    .title-input:hover {
+        background-color: #5a5a5a;
+    }
+
+    .description-input {
+        background-color: transparent;
+        border: none;
+        font-size: calc(100% + 1.0vw);
+        color: $secondary;
+        font-weight: bold;
+    }
+
+    .description-input::placeholder {
+        color: #6b6b6b;
+    }
+
+    .description-input:hover {
+        background-color: #5a5a5a;
+    }
+
+    .search-input {
+        background-color: rgb(44, 44, 44);
+        border: none;
+        color: rgb(255, 255, 255);
+        font-size: 24px;
+        font-weight: normal;
+    }
+
+    .search-input::placeholder {
+        color: #e0e0e0;
+    }
+
+    .back {
+        top: 50%;
+        left: 3%;
+    }
+
+    .save {
+        top: 50%;
+        right: 3%;
+    }
+
+    .add-playlist-thumbnail {
+        aspect-ratio: 1 / 1;
+        // height: auto;
+        width: auto;
+        border-radius: 10px;
+        background-color: #3b3b3b;
+    }
+
+    .add-playlist-thumbnail:hover {
+        background-color: #5a5a5a;
+        cursor: pointer;
+    }
+}

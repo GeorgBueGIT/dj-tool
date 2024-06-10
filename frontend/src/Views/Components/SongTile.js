@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpotify } from '@fortawesome/free-brands-svg-icons'
 import { faSoundcloud } from '@fortawesome/free-brands-svg-icons'
 
-function Song(props) {
+export default function Song(props) {
   const {
     attributes,
     listeners,
@@ -21,14 +21,11 @@ function Song(props) {
   
   return (
     <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <div className="song">
-        <div className='song-wrapper container bg-white my-3'>
+      <div className="song my-3">
+        <div className='song-wrapper container'>
           <div className='row'>
-            <div className='col d-flex align-items-center'>
-              <FontAwesomeIcon 
-              icon={props.source == "spotify" ? faSpotify : faSoundcloud}
-              style={{ height: "24px", color: props.source === "spotify" ? "#1DB954" : "#000000" }} 
-              />
+            <div className='col-4'>
+              <iframe title='spotify-embed' src="https://open.spotify.com/embed/track/4dtw0PeTpfv8ISIWVKHesZ?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
             </div>
             <div className='col d-flex align-items-center'>
               <b> {props.title} </b>
@@ -42,8 +39,11 @@ function Song(props) {
             <div className='col d-flex align-items-center'>
               <b> {props.songkey} </b>
             </div>
-            <div className='col'>
-              <iframe src="https://open.spotify.com/embed/track/4dtw0PeTpfv8ISIWVKHesZ?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            <div className='col d-flex align-items-center'>
+              <FontAwesomeIcon 
+              icon={props.source === "spotify" ? faSpotify : faSoundcloud}
+              style={{ height: "24px", color: props.source === "spotify" ? "#1DB954" : "#000000" }} 
+              />
             </div>
           </div>
         </div>
@@ -51,5 +51,3 @@ function Song(props) {
     </div>
   );
 }
-
-export default Song;
