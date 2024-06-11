@@ -2,7 +2,7 @@ import React from "react";
 import PlaylistCoverTest from "../../resources/Images/PlaylistCoverTest.jpeg";
 import { Progress } from "antd";
 
-export default function PlaylistTile() {
+export default function PlaylistTile({ title='Test'}) {
   return (
     <div className="playlist-tile m-3 p-3" id="playlist-tile">
       <div className="row h-100">
@@ -18,7 +18,7 @@ export default function PlaylistTile() {
           <div className="row">
             <div className="col-9">
               <div className="playlist-headline-combo p-0">
-                <h3 className="my-0 py-0"> Trap </h3>
+                <h3 className="my-0 py-0"> {title} </h3>
                 <p className="mb-1"> #Trap, #HipHop, #Dark </p>
               </div>
             </div>

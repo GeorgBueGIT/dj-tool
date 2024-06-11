@@ -4,6 +4,10 @@
     background-image: url("../../resources//Wallpapers/background.jpg");
     background-size: cover;
 
+    input, textarea, .add-playlist-thumbnail {
+        transition: background-color .3s ease-in-out;
+    }
+
     .playlist-frame {
         background-color: black;
         border-radius: 10px;
@@ -26,6 +30,11 @@
         background-color: #5a5a5a;
     }
 
+    .title-input:focus {
+        box-shadow: none;
+        background-color: #5a5a5a;
+    }
+
     .description-input {
         background-color: transparent;
         border: none;
@@ -42,16 +51,30 @@
         background-color: #5a5a5a;
     }
 
+    .description-input:focus {
+        box-shadow: none !important;
+        background-color: #5a5a5a;
+    }
+
     .search-input {
-        background-color: rgb(44, 44, 44);
+        background-color: rgb(0, 0, 0);
         border: none;
         color: rgb(255, 255, 255);
         font-size: 24px;
         font-weight: normal;
     }
 
+    .search-input:hover {
+        background-color: #5a5a5a;
+    }
+
     .search-input::placeholder {
         color: #e0e0e0;
+    }
+
+    .search-input:focus {
+        box-shadow: none !important;
+        background-color: #5a5a5a;
     }
 
     .back {
@@ -66,14 +89,19 @@
 
     .add-playlist-thumbnail {
         aspect-ratio: 1 / 1;
-        // height: auto;
-        width: auto;
+        height: 100% !important;
         border-radius: 10px;
         background-color: #3b3b3b;
+        background-size: cover;
     }
 
     .add-playlist-thumbnail:hover {
         background-color: #5a5a5a;
         cursor: pointer;
+    }
+
+    button {
+        background-color: transparent !important;
+        border: none;
     }
 }

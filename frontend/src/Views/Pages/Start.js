@@ -14,7 +14,7 @@ export default function Start() {
     setIsLogin(!isLogin);
   };
 
-  const onFinish = async (values) => {
+  const onFinishLogin = async (values) => {
     console.log("Received values of form: ", values);
 
     const { username, password } = values;
@@ -35,10 +35,33 @@ export default function Start() {
       setTimeout(() => {
         setShowAlert(false);
       }, 3000);
-    } else {
-      console.log("Server Error!");
     }
   };
+
+  const onFinishRegister = async (values) => {
+    console.log("Received values of form: ", values);
+
+    const { username, password } = values;
+    const response = await fetch("http://localhost:3001/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username, password }),
+    });
+    
+    await response.json();
+
+    if (response.status === 200) {
+      navigate("/Home");
+    }
+    if (response.status === 401) {
+      console.log("Not Valid Credentials!");
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+    }
+  };
+  
   
   // useEffect(() => {
   //   fetch('http://localhost:3001/api/data')
@@ -59,11 +82,11 @@ export default function Start() {
         </div>
       </div>
 
-      <Login isActive={isLogin} toggleForm={toggleForm} onFinish={onFinish} />
+      <Login isActive={isLogin} toggleForm={toggleForm} onFinish={onFinishLogin} />
       <Register
         isActive={!isLogin}
         toggleForm={toggleForm}
-        onFinish={onFinish}
+        onFinish={onFinishRegister}
       />
     </div>
   );
