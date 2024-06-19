@@ -14,7 +14,7 @@ jobs:
       db:
         image: mysql:latest
         ports:
-          - 3306:3306
+          - 3307:3306
         env:
           MYSQL_ROOT_PASSWORD: rootpassword
           MYSQL_DATABASE: dj_tool
@@ -33,12 +33,6 @@ jobs:
 
       - name: Build frontend Docker image
         run: docker build -t my-frontend ./frontend
-
-      - name: Print current directory
-        run: pwd
-
-      - name: List directory contents
-        run: ls
 
       - name: Run Docker Compose
         run: docker-compose -f docker-compose.yaml up -d --build
