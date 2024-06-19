@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="App">
       {loading ? (
-        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+        <div data-testid="app-spinner" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
           <Spin size="large" />
         </div>
       ) : (
@@ -50,6 +50,11 @@ function App() {
           <Route exact path="/View-Playlist" element={<ViewPlaylist/>}/>
         </Routes>
       </Router>
+      )}
+      {!loading && (
+        <div data-testid="app-content">
+          {/* Content after loading, you can add specific elements here */}
+        </div>
       )}
     </div>
   );

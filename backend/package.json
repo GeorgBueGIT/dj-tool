@@ -5,9 +5,10 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "dev": "nodemon server"
+    "dev": "nodemon server",
+    "test": "jest --coverage --watch --runInBand",
+    "test:ci": "jest --coverage --watchAll=false --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +23,45 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.(t|j)s?$": [
+        "@swc/jest"
+      ]
+    },
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "node_modules/",
+      "src/config/"
+    ],
+    "watchPathIgnorePatterns": [
+      "node_modules/",
+      "/config",
+      "dist/",
+      "coverage/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    },
+    "coverageReporters": [
+      "cobertura",
+      "json",
+      "lcov",
+      "text"
+    ],
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.js?$",
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "node_modules/",
+      "coverage/"
+    ]
   }
 }

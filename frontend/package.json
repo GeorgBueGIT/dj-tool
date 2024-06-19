@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/preset-react": "^7.24.7",
     "@dnd-kit/core": "^6.1.0",
     "@dnd-kit/modifiers": "^7.0.0",
     "@dnd-kit/sortable": "^8.0.0",
@@ -34,7 +35,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test:ci": "react-scripts test --coverage  --watchAll=false"
   },
   "eslintConfig": {
     "extends": [
@@ -54,7 +55,25 @@
       "last 1 safari version"
     ]
   },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    },
+    "coverageReporters": [
+      "cobertura",
+      "json",
+      "lcov",
+      "text"
+    ]
+  },
   "devDependencies": {
+    "match-media": "^0.2.0",
+    "mq-polyfill": "^1.1.8",
     "sass": "^1.74.1"
   }
 }
