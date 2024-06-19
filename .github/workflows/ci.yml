@@ -35,7 +35,7 @@ jobs:
         run: docker build -t my-frontend ./frontend
 
       - name: Run Docker Compose
-        run: docker-compose -f docker-compose.yml up -d --build
+        run: docker-compose -f /docker-compose.yml up -d --build
 
       - name: Run backend tests
         run: docker exec backend npm test
@@ -44,4 +44,4 @@ jobs:
         run: docker exec frontend npm test
 
       - name: Shut down Docker Compose
-        run: docker-compose -f docker-compose.yml down
+        run: docker-compose -f /docker-compose.yml down
