@@ -1,6 +1,7 @@
 import express from 'express';
 import multer from 'multer';
 import fs from 'fs';
+import path from 'path';
 
 const router = express.Router();
 
@@ -18,7 +19,21 @@ const storage = multer.diskStorage({
   },
 });
 
-const upload = multer({ storage: storage });
+const upload = multer({ 
+  storage: storage,
+  limits: { fileSize: 10000000 }, // 10MB limit (optional)
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png/; // Allowed file types
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    } else {
+      cb(new Error('Only images are allowed!'));
+    }
+  }
+});
 
 // File upload endpoint
 router.post('/', upload.single('file'), (req, res) => {

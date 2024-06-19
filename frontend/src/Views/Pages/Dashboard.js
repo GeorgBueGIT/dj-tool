@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
-import TrendingPlaylists from "../Partials/TrendingPlaylists";
-import YourPlaylists from "../Partials/YourPlaylists";
-import Profile from "../Partials/Profile";
+import TrendingPlaylists from "../Components/Dashboard/TrendingPlaylists";
+import YourPlaylists from "../Components/Dashboard/YourPlaylists";
+import Profile from "../Components/Dashboard/Profile";
 import Header from "../Partials/Header";
 import Slider from "react-slick";
 

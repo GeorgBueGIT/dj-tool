@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
-import Login from "../Components/Login";
-import Register from "../Components/Register";
+import Login from "../Components/Auth/Login";
+import Register from "../Components/Auth/Register";
+import Alert from "../Components/Alert"
 
 export default function Start() {
   const navigate = useNavigate();
@@ -27,7 +26,7 @@ export default function Start() {
     await response.json();
 
     if (response.status === 200) {
-      navigate("/Home");
+      navigate("/Dashboard");
     }
     if (response.status === 401) {
       console.log("Invalid credentials received");
@@ -51,7 +50,7 @@ export default function Start() {
     await response.json();
 
     if (response.status === 200) {
-      navigate("/Home");
+      navigate("/Dashboard");
     }
     if (response.status === 401) {
       console.log("Not Valid Credentials!");
@@ -74,13 +73,7 @@ export default function Start() {
       className="position-relative d-flex justify-content-center"
       id="login-page"
     >
-      <div className="credentials-alert-wrapper vh100 position-absolute" style={{ bottom: showAlert ? "0" : "10%" }}>
-        <div
-          className="credentials-alert px-3 py-2 mt-2">
-          <FontAwesomeIcon icon={faCircleExclamation} className="me-3" />
-          <b> Invalid Credentials! </b>
-        </div>
-      </div>
+      <Alert showAlert={showAlert} msg={'Invalid Credentials!'} />
 
       <Login isActive={isLogin} toggleForm={toggleForm} onFinish={onFinishLogin} />
       <Register

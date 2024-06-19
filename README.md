@@ -17,10 +17,15 @@
 
 
 
+Filter Playlists?
+Search Playlists?
+Track Recommendations (part of Spotify API)
+
 
 
 ? Mobile Responsiveness
 ? Validierung (Login/ Signup reicht frontend Validierung)
+? Man kann viel mit der Api nochmachen (wem folgen, songs liken, ...)
 
 
 
@@ -30,3 +35,14 @@
 * Routing
 * Database
 * Backend
+
+
+
+
+
+
+Heute:
+- ViewPlaylists
+- EditPlaylists
+- UserStories aufschreiben
+- CI/CD

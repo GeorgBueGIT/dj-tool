@@ -1,4 +1,4 @@
-#spotify-playlists-page  {
+#import-spotify-playlist {
 
     .front-page-wrapper {
         height: 100vh !important;
@@ -31,5 +31,26 @@
     .save {
         top: 50%;
         right: 3%;
+    }
+
+    .title-input {
+        background-color: transparent;
+        border: none;
+        font-family: "Black Ops One", system-ui;
+        font-size: calc(100% + 2.0vw);
+        color: $secondary;
+    }
+
+    .title-input::placeholder {
+        color: #aeaeae;
+      }
+
+    .title-input:hover {
+        background-color: #5a5a5a;
+    }
+
+    .spotify-playlist-tile:hover {
+        filter: drop-shadow(0px 0px 12px rgb(255, 255, 255));
+        cursor: pointer;
     }
 }

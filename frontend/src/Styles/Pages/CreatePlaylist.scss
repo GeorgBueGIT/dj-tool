@@ -104,4 +104,23 @@
         background-color: transparent !important;
         border: none;
     }
+
+    .description-tag-container {
+        background-color: #3b3b3b;
+        width: fit-content;
+        border-radius: 100px;
+    }
+
+    .description-tag-container:hover {
+        background-color: #5a5a5a;
+        cursor: pointer;
+    }
+
+    .selected-tag {
+        background-color: orange;
+    }
+
+    .selected-tag:hover {
+        background-color: black;
+    }
 }

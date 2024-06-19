@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import PlaylistTile from "../Components/PlaylistTile";
-import ProfileDescription from "../Components/ProfileDescription";
+import PlaylistTile from "../PlaylistTile";
+import ProfileDescription from "../ProfileDescription";
+import { getUsernameById } from "../../../utils/Database/GetUsernameById";
 import {Spin} from "antd";
 
 function Profile({ headerHeight }) {
@@ -33,7 +34,7 @@ function Profile({ headerHeight }) {
     }
 
     return playlistsData.map((playlist, index) => (
-        <PlaylistTile key={index} title={playlist.Title} />
+        <PlaylistTile key={index} title={playlist.Title} imageSrc={playlist.Cover} username={username}/>
     ));
   };
 
@@ -48,7 +49,7 @@ function Profile({ headerHeight }) {
           className="col-12 col-lg-6 h-100"
           style={{ paddingTop: headerHeight + "px" }}
         >
-          <div className="content-frame mh-100 w-100 py-3">
+          <div className="content-frame mh-100 w-100">
             <ProfileDescription />
             {renderPlaylistTiles()}
           </div>

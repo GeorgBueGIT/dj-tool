@@ -52,16 +52,6 @@
     transition: top 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.175), bottom 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.175);
   }
 
-  .credentials-alert-wrapper {
-    transition: bottom .8s cubic-bezier(0.175, 0.885, 0.32, 1.175);
-  }
-
-  .credentials-alert {
-    background-color: $primary;
-    height: fit-content;
-    border-radius: 10px;
-  }
-
   .switch-start-type {
     color: $primary;
   }

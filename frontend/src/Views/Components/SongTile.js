@@ -1,9 +1,37 @@
-import React from 'react';
-import {useSortable} from '@dnd-kit/sortable';
-import {CSS} from '@dnd-kit/utilities'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSpotify } from '@fortawesome/free-brands-svg-icons'
-import { faSoundcloud } from '@fortawesome/free-brands-svg-icons'
+import React, { useState, useRef, useEffect } from "react";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { DeleteOutlined } from "@ant-design/icons";
+
+const camelotMajor = {
+  0: "8B", // C major
+  1: "3B", // C♯/D♭ major
+  2: "10B", // D major
+  3: "5B", // E♭ major
+  4: "12B", // E major
+  5: "7B", // F major
+  6: "2B", // F♯ major
+  7: "9B", // G major
+  8: "4B", // A♭ major
+  9: "11B", // A major
+  10: "6B", // B♭ major
+  11: "1B", // B major
+};
+
+const camelotMinor = {
+  0: "5A", // C minor
+  1: "12A", // C♯/D♭ minor
+  2: "7A", // D minor
+  3: "2A", // E♭ minor
+  4: "9A", // E minor
+  5: "4A", // F minor
+  6: "11A", // F♯ minor
+  7: "6A", // G minor
+  8: "1A", // A♭ minor
+  9: "8A", // A minor
+  10: "3A", // B♭ minor
+  11: "10A", // B minor
+};
 
 export default function Song(props) {
   const {
@@ -12,38 +40,68 @@ export default function Song(props) {
     setNodeRef,
     transform,
     transition,
-  } = useSortable({id: props.id});
-  
+  } = useSortable({ id: props.id });
+
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   };
-  
+
+  const renderArtists = () => {
+    if (!props.artists) {
+      return null;
+    }
+
+    const artistNames = props.artists.map((artist) => artist.name).join(", ");
+    return <p>{artistNames}</p>;
+  };
+
+  const getCamelotNotation = (key, mode) => {
+    if (mode === 0) {
+      return camelotMajor[key];
+    } else if (mode === 1) {
+      return camelotMinor[key];
+    } else {
+      return null; // Invalid mode
+    }
+  };
+
+  const formatDuration = (duration) => {
+    const totalSeconds = Math.floor(duration / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
   return (
-    <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-      <div className="song my-3">
-        <div className='song-wrapper container'>
-          <div className='row'>
-            <div className='col-4'>
-              <iframe title='spotify-embed' src="https://open.spotify.com/embed/track/4dtw0PeTpfv8ISIWVKHesZ?utm_source=generator&theme=0" width="100%" height="152" frameBorder="0" allowFullScreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      id="song-tile"
+    >
+      <div className="song m-1">
+        <div className="song-wrapper p-1">
+          <div className="row">
+            <div className="col-1 d-flex align-items-center justify-content-center">
+              <b className="p-0 m-0"> #{props.songIndex + 1} </b>
             </div>
-            <div className='col d-flex align-items-center'>
+            <div className="col-1 d-flex align-items-center">
+              <img className="song-cover" src={props.cover} alt="Song Cover" />
+            </div>
+            <div className="col d-flex align-items-start flex-column justify-content-center">
               <b> {props.title} </b>
+              {renderArtists()}
             </div>
-            <div className='col d-flex align-items-center'>
-              <b> {props.artist} </b>
+            <div className="col d-flex align-items-center">
+              <b> {Math.floor(props.bpm)} bpm </b>
             </div>
-            <div className='col d-flex align-items-center'>
-              <b> {props.bpm}bpm </b>
+            <div className="col d-flex align-items-center">
+              <b> {getCamelotNotation(props.songkey, props.mode)} </b>
             </div>
-            <div className='col d-flex align-items-center'>
-              <b> {props.songkey} </b>
-            </div>
-            <div className='col d-flex align-items-center'>
-              <FontAwesomeIcon 
-              icon={props.source === "spotify" ? faSpotify : faSoundcloud}
-              style={{ height: "24px", color: props.source === "spotify" ? "#1DB954" : "#000000" }} 
-              />
+            <div className="col d-flex align-items-center">
+              <b> {formatDuration(props.duration)} </b>
             </div>
           </div>
         </div>

@@ -5,7 +5,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
     background-color: $secondary;
     overscroll-behavior-x: none;
-    overscroll-behavior-y: auto;
+    overscroll-behavior-y: none;
     color: $secondary;
     background-color: black;
 }
@@ -67,5 +67,29 @@ h1, h2, h3, h4, h5, h6, b, p, a {
 
 .ant-spin-dot-item {
     background-color: $secondary !important;
+}
+
+.alert-wrapper {
+    transition: bottom .8s cubic-bezier(0.175, 0.885, 0.32, 1.175);
+  }
+
+.alert {
+    background-color: $primary;
+    height: fit-content;
+    border-radius: 10px;
+}
+
+.background-color-transition {
+    transition: background-color 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.reactEasyCrop_Container {
+    max-width: 300px;
+
+}
+
+.py-6 {
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
 }
 

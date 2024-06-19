@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import FrontPage from './Views/Pages/FrontPage';
-import Start from './Views/Pages/Start';
+import Dashboard from './Views/Pages/Dashboard';
+import Access from './Views/Pages/Access';
 import CreatePlaylist from './Views/Pages/CreatePlaylist';
 import ImportSpotify from './Views/Pages/ImportSpotify';
+import ViewPlaylist from './Views/Pages/ViewPlaylist';
 import {Spin} from "antd";
 import "./app.css";
 
@@ -15,15 +16,6 @@ import {
 } from "react-router-dom";
 
 function App() {
-
-  // const fetchData = async () => {
-  //   const res = await fetch("http://localhost:3001/");
-  //   console.log(res);
-  // };
-
-  // useEffect(() => {
-  //   fetchData();
-  // }, []);
 
   const [loading, setLoading] = useState(true);
 
@@ -51,10 +43,11 @@ function App() {
       ) : (
       <Router>
         <Routes>
-          <Route exact path="/" element={<Start/>}/>
-          <Route exact path="/Home" element={<FrontPage/>}/>
+          <Route exact path="/" element={<Access/>}/>
+          <Route exact path="/Dashboard" element={<Dashboard/>}/>
           <Route exact path="/Create" element={<CreatePlaylist/>}/>
           <Route exact path="/Import-Spotify" element={<ImportSpotify/>}/>
+          <Route exact path="/View-Playlist" element={<ViewPlaylist/>}/>
         </Routes>
       </Router>
       )}
