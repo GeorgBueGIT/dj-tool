@@ -34,10 +34,10 @@ jobs:
       - name: Build frontend Docker image
         run: docker build -t my-frontend ./frontend
 
-      - name: Debug: Print current directory
+      - name: Print current directory
         run: pwd
 
-      - name: Debug: List directory contents
+      - name: List directory contents
         run: ls
 
       - name: Run Docker Compose
