@@ -41,7 +41,7 @@ jobs:
         run: ls
 
       - name: Run Docker Compose
-        run: docker-compose -f docker-compose.yml up -d --build
+        run: docker-compose -f docker-compose.yaml up -d --build
 
       - name: Run backend tests
         run: docker exec backend npm test
@@ -50,4 +50,4 @@ jobs:
         run: docker exec frontend npm run test:ci
 
       - name: Shut down Docker Compose
-        run: docker-compose -f docker-compose.yml down
+        run: docker-compose -f docker-compose.yaml down
