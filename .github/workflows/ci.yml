@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    services:
+      db:
+        image: mysql:latest
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: dj_tool
+          MYSQL_USER: myuser
+          MYSQL_PASSWORD: mypassword
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build backend Docker image
+        run: docker build -t my-backend ./backend
+
+      - name: Build frontend Docker image
+        run: docker build -t my-frontend ./frontend
+
+      - name: Run Docker Compose
+        run: docker-compose -f docker-compose.yml up -d --build
+
+      - name: Run backend tests
+        run: docker exec backend npm test
+
+      - name: Run frontend tests
+        run: docker exec frontend npm test
+
+      - name: Shut down Docker Compose
+        run: docker-compose -f docker-compose.yml down
