@@ -1,8 +1,9 @@
 import { Dropdown, Space } from "antd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserNinja } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../Auth/AuthProvider";
 
-function Header({ activeLink, navToSlide, onSignOut }) {
+function Header({ activeLink, navToSlide }) {
   const navLinks = () => {
     const links = ["Inspiration", "Your Playlists", "Profile"];
     const colours = [
@@ -33,11 +34,16 @@ function Header({ activeLink, navToSlide, onSignOut }) {
     return renderedLinks;
   };
 
+  const auth = useAuth();
+  const onSignOut = async () => {
+    auth.logOut();
+  };
+
   const items = [
     {
       key: "1",
       label: (
-        <a rel="noopener noreferrer" href="/">
+        <a onClick={onSignOut}>
           Sign Out
         </a>
       ),

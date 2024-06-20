@@ -27,25 +27,4 @@ Profil bearbeiten
 
 
 ? Mobile Responsiveness
-? Validierung (Login/ Signup reicht frontend Validierung)
 ? Man kann viel mit der Api nochmachen (wem folgen, songs liken, ...)
-
-
-
-## ToDo:
-* Dockerize
-* Tests
-* Routing
-* Database
-* Backend
-
-
-
-
-
-
-Heute:
-- ViewPlaylists
-- EditPlaylists
-- UserStories aufschreiben
-- CI/CD

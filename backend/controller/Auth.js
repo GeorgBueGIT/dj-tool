@@ -1,5 +1,6 @@
 import database from "../config/database.js";
 import config from "../config/config.js";
+import jwt from "jsonwebtoken";
 
 export const login = (req, res) => {
   const { username, password } = req.body;
@@ -17,10 +18,20 @@ export const login = (req, res) => {
 
     const user = results[0];
 
+    console.log(user.ID);
+
     if (user.Password === password) {
-      res.status(200).json({ message: "Login successful", user });
+      const token = jwt.sign({ id: user.ID }, "your-secret-key", {
+        expiresIn: "1h",
+      });
+
+      res.status(200).json({
+        message: "Login successful",
+        user: { id: user.ID, username: user.Username },
+        token,
+      });
     } else {
-      res.status(401).json({ message: "Invalid credentials" });
+      return res.status(401).json({ message: "Invalid credentials" });
     }
   });
 };

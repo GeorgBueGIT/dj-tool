@@ -82,11 +82,11 @@ export default function ImportSpotify() {
 
   return (
     <div
-      className="import-spotify-playlist d-flex justify-content-center overflow-hidden"
+      className="import-spotify-playlist d-flex justify-content-center vh-100"
       id="import-spotify-playlist"
     >
       <Alert showAlert={showAlert} msg={"Couldn't import Playlist!"} />
-      <div className="vh100 w-50 page-color position-relative d-flex flex-column justify-content-center align-items-center">
+      <div className="mh-100 my-5 w-50 page-color position-relative d-flex flex-column justify-content-center align-items-center">
         <Input
           placeholder="Your Spotify User-ID ..."
           className="mb-3 title-input text-center"
@@ -98,7 +98,7 @@ export default function ImportSpotify() {
           }}
           onChange={(event) => setUserId(event.target.value)}
         />
-        <div className="row">
+        <div className="row mh-100 overflow-scroll">
           {playlists &&
             playlists.map((playlist, index) => (
               <div

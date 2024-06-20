@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Login from "../Components/Auth/Login";
 import Register from "../Components/Auth/Register";
 import Alert from "../Components/Alert"
+import { useAuth } from "../../Auth/AuthProvider";
 
 export default function Start() {
   const navigate = useNavigate();
@@ -13,28 +14,10 @@ export default function Start() {
     setIsLogin(!isLogin);
   };
 
+  const auth = useAuth();
   const onFinishLogin = async (values) => {
-    console.log("Received values of form: ", values);
-
     const { username, password } = values;
-    const response = await fetch("http://localhost:3001/api/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-    
-    await response.json();
-
-    if (response.status === 200) {
-      navigate("/Dashboard");
-    }
-    if (response.status === 401) {
-      console.log("Invalid credentials received");
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 3000);
-    }
+    auth.loginAction(username, password);
   };
 
   const onFinishRegister = async (values) => {
@@ -60,13 +43,6 @@ export default function Start() {
       }, 3000);
     }
   };
-  
-  
-  // useEffect(() => {
-  //   fetch('http://localhost:3001/api/data')
-  //     .then((response) => response.json())
-  //     .then((data) => setData(data.message));
-  // }, []);
 
   return (
     <div
