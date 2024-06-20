@@ -38,37 +38,42 @@
         top: 50%;
         transform: translateY(-50%);
         z-index: 1000;
-      }
+    }
       
-      .nav-left {
-        position: absolute;
-        left: 2%;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 1000;
-      }
-
-    .nav-left::before {
-        content: " ";
-        border-left: 15px solid #fff;
-        border-bottom: 15px solid #ffffff51;
-        width: 30px;
-        height: 30px;
-        transform: rotate(45deg);
-        cursor: pointer;
-        display: block;
+    .nav-left {
+    position: absolute;
+    left: 2%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
     }
 
-    .nav-right::before {
-        content: " ";
-        border-right: 15px solid #ffffff;
-        border-top: 15px solid #ffffff51;
-        width: 30px;
-        height: 30px;
-        transform: rotate(45deg);
+    .nav-left:hover, .nav-right:hover{
         cursor: pointer;
-        display: block;
+        opacity: .5;
     }
+
+    // .nav-left::before {
+    //     content: " ";
+    //     border-left: 15px solid #fff;
+    //     border-bottom: 15px solid #ffffff51;
+    //     width: 30px;
+    //     height: 30px;
+    //     transform: rotate(45deg);
+    //     cursor: pointer;
+    //     display: block;
+    // }
+
+    // .nav-right::before {
+    //     content: " ";
+    //     border-right: 15px solid #ffffff;
+    //     border-top: 15px solid #ffffff51;
+    //     width: 30px;
+    //     height: 30px;
+    //     transform: rotate(45deg);
+    //     cursor: pointer;
+    //     display: block;
+    // }
 
     .content-frame {
         background-color: black;

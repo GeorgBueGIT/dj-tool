@@ -1,8 +1,8 @@
 # dj-tool
 
 ## User-Stories
-* Login
-* Sign Up
+* Login      (1. Userstory)
+* Sign Up    (2. Userstory)
 
 * Show Recent Spotify Playlists
 * Import Spotify Playlist
@@ -20,6 +20,9 @@
 Filter Playlists?
 Search Playlists?
 Track Recommendations (part of Spotify API)
+Vielleicht ein auto playlist sort
+PRofil anlegen nach Registrierung
+Profil bearbeiten
 
 
 

@@ -53,7 +53,7 @@ export default function Song(props) {
     }
 
     const artistNames = props.artists.map((artist) => artist.name).join(", ");
-    return <p>{artistNames}</p>;
+    return <b className="artists">{artistNames}</b>;
   };
 
   const getCamelotNotation = (key, mode) => {
@@ -81,27 +81,24 @@ export default function Song(props) {
       {...listeners}
       id="song-tile"
     >
-      <div className="song m-1">
-        <div className="song-wrapper p-1">
-          <div className="row">
-            <div className="col-1 d-flex align-items-center justify-content-center">
-              <b className="p-0 m-0"> #{props.songIndex + 1} </b>
-            </div>
+      <div className="song m-2" id="song">
+        <div className="song-wrapper py-0">
+          <div className="row p-2">
             <div className="col-1 d-flex align-items-center">
               <img className="song-cover" src={props.cover} alt="Song Cover" />
             </div>
-            <div className="col d-flex align-items-start flex-column justify-content-center">
+            <div className="col-7 d-flex align-items-start flex-column justify-content-center">
               <b> {props.title} </b>
               {renderArtists()}
             </div>
-            <div className="col d-flex align-items-center">
-              <b> {Math.floor(props.bpm)} bpm </b>
+            <div className="col d-flex align-items-center justify-content-end">
+              <b className="darker"> {Math.floor(props.bpm)} bpm </b>
             </div>
-            <div className="col d-flex align-items-center">
-              <b> {getCamelotNotation(props.songkey, props.mode)} </b>
+            <div className="col d-flex align-items-center justify-content-end">
+              <b className="darker"> {getCamelotNotation(props.songkey, props.mode)} </b>
             </div>
-            <div className="col d-flex align-items-center">
-              <b> {formatDuration(props.duration)} </b>
+            <div className="col d-flex align-items-center justify-content-end pe-3">
+              <b className="darker"> {formatDuration(props.duration)} </b>
             </div>
           </div>
         </div>

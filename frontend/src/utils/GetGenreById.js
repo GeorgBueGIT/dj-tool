@@ -82,8 +82,8 @@ const genreTags = {
   };
 
   export const getGenreById = (id) => {
-    if (id > 0 && id <= 80) {
-      return genreTags[id];
+    if (id >= 0 && id < 80) {
+      return genreTags[(parseInt(id, 10)+1)];
     }
   };
   

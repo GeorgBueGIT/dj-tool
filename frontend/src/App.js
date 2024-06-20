@@ -5,6 +5,7 @@ import Access from './Views/Pages/Access';
 import CreatePlaylist from './Views/Pages/CreatePlaylist';
 import ImportSpotify from './Views/Pages/ImportSpotify';
 import ViewPlaylist from './Views/Pages/ViewPlaylist';
+import EditPlaylist from './Views/Pages/EditPlaylist';
 import {Spin} from "antd";
 import "./app.css";
 
@@ -48,6 +49,7 @@ function App() {
           <Route exact path="/Create" element={<CreatePlaylist/>}/>
           <Route exact path="/Import-Spotify" element={<ImportSpotify/>}/>
           <Route exact path="/View-Playlist" element={<ViewPlaylist/>}/>
+          <Route exact path="/Edit-Playlist" element={<EditPlaylist/>}/>
         </Routes>
       </Router>
       )}

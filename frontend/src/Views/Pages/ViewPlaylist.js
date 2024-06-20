@@ -16,6 +16,16 @@ export default function ViewPlaylist() {
   const ID = searchParams.get("ID");
 
   const [playlistDetailsObj, setPlaylistDetailsObj] = useState(null);
+  const [spotifyAccessToken, setSpotifyAccessToken] = useState("");
+
+  useEffect(() => {
+    const fetchAccessToken = async () => {
+      const accessToken = await getSpotifyAccessToken();
+      setSpotifyAccessToken(accessToken);
+      console.log("Fetched AccessToken: " + accessToken);
+    };
+    fetchAccessToken();
+  }, []);
 
   useEffect(() => {
     const setPlaylistObj = async () => {
@@ -29,20 +39,20 @@ export default function ViewPlaylist() {
       className="create-playlist d-flex justify-content-center overflow-hidden"
       id="create-playlist-page"
     >
-      {playlistDetailsObj && (
+      {playlistDetailsObj && spotifyAccessToken &&(
         <div
           className="vh100 w-100 pageüä-color position-relative justify-content-center"
           id="view-playlist"
         >
           <div className="px-5">
-            <div className="row vh100 py-6">
+            <div className="row vh100 d-flex align-items-center py-6">
               <div className="col-2 h-100">
                 <a href="/Dashboard" className="position-fixed back">
                   {" "}
                   Back{" "}
                 </a>
               </div>
-              <div className="col-8 playlist-frame h-100">
+              <div className="col-8 playlist-frame mh-100">
                 <div className="playlist-frame-header mb-5 p-2 pt-4 d-flex justify-content-between">
                   <div className="me-3">
                     <Input
@@ -67,14 +77,14 @@ export default function ViewPlaylist() {
                   ></div>
                 </div>
 
-                {/* <div className="songs">
+                <div className="songs">
             
                   <SongList
-                    ref={songListRef}
-                    addedSongsIdsArray={addedSongsIdsArray}
+                    addedSongsIdsArray={playlistDetailsObj[0].Songs_Sorted.split(', ')}
                     spotifyAccessToken={spotifyAccessToken}
+                    allowSort={false}
                   />
-              </div> */}
+              </div>
 
 
               

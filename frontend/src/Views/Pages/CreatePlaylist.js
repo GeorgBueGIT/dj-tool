@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom";
 import ImageCrop from "../Components/ImageCrop";
 import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getSong } from "../../utils/Spotify/GetSong";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFloppyDisk, faBackward } from "@fortawesome/free-solid-svg-icons";
 const { TextArea } = Input;
 
 export default function CreatePlaylist() {
@@ -82,6 +84,10 @@ export default function CreatePlaylist() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const ImageCropRef = useRef(null);
+
+  const goBack = () => {
+    navigate("/Dashboard");
+  }
 
   const onSavePlaylist = async () => {
     if (title === "") {
@@ -168,10 +174,14 @@ export default function CreatePlaylist() {
         <div className="px-5">
           <div className="row vh100 py-6">
             <div className="col-2 h-100">
-              <a href="/Dashboard" className="position-fixed back">
-                {" "}
-                Back{" "}
-              </a>
+              <div onClick={goBack} className="position-fixed back">
+              <FontAwesomeIcon
+                    className="px-3"
+                    fontSize={"32px"}
+                    icon={faBackward}
+                  />
+              </div>
+              
             </div>
             <div className="col-8 playlist-frame h-100">
               <div className="playlist-frame-header mb-5 p-2 pt-4 d-flex justify-content-between">
@@ -213,7 +223,7 @@ export default function CreatePlaylist() {
               </div>
 
               <div className="songs">
-                {spotifyAccessToken && (
+                {spotifyAccessToken && addedSongsIdsArray && (
                   <SongList
                     ref={songListRef}
                     addedSongsIdsArray={addedSongsIdsArray}
@@ -224,7 +234,11 @@ export default function CreatePlaylist() {
             </div>
             <div className="col-2 h-100">
               <div onClick={onSavePlaylist} className="position-fixed save">
-                Save Changes
+                <FontAwesomeIcon
+                    className="px-3"
+                    fontSize={"32px"}
+                    icon={faFloppyDisk}
+                  />
               </div>
             </div>
           </div>

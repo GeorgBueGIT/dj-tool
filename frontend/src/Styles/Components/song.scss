@@ -1,6 +1,28 @@
-.song-wrapper {
-    border-radius: 10px;
-    font-size: 20px;
-    font-weight: bold;
-    background-color: #3b3b3b;
+#song {
+    .song-wrapper {
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: #3b3b3b;
+        user-select: none;
+    }
+    
+    .song-wrapper:hover {
+        background-color: #282828;
+    }
+
+    p {
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    .artists {
+        color: #141414;
+        font-size: 90%;
+    }
+
+    .darker {
+        color: #141414;
+    }
 }
+

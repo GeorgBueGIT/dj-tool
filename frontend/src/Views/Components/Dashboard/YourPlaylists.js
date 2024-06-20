@@ -3,10 +3,12 @@ import PlaylistTile from "../PlaylistTile";
 import Spotify from "../../../resources/Logos/Spotify.png";
 import Soundcloud from "../../../resources/Logos/Soundcloud.jpg";
 import { getUsernameById } from "../../../utils/Database/GetUsernameById";
+import { useNavigate } from "react-router-dom";
 import {Spin} from "antd";
 
 function YourPlaylists({ headerHeight }) {
   const [playlistsData, setPlaylistsData] = useState([]);
+  const navigate = useNavigate();
 
   const username = "Root";
 
@@ -30,6 +32,11 @@ function YourPlaylists({ headerHeight }) {
     fetchPlaylists();
   }, []);
 
+  const editPlaylist = (ID) => {
+    console.log("ID: " + ID);
+    navigate(`/Edit-Playlist?ID=${ID}`);
+  }
+
   const renderPlaylistTiles = () => {
     if (playlistsData.length === 0) {
       return (
@@ -43,8 +50,11 @@ function YourPlaylists({ headerHeight }) {
       <PlaylistTile
         key={index}
         title={playlist.Title}
+        description={playlist.Description}
         imageSrc={playlist.Cover}
         username={username}
+        tags={playlist.Tags}
+        onClick={() => editPlaylist(playlist.ID)}
       />
     ));
   };
@@ -81,7 +91,7 @@ function YourPlaylists({ headerHeight }) {
           className="col-12 col-lg-6 h-100"
           style={{ paddingTop: headerHeight + "px" }}
         >
-          <div className="content-frame mh-100 w-100 py-3">
+          <div className="content-frame mh-100 w-100">
             {renderPlaylistTiles()}
           </div>
         </div>

@@ -1,10 +1,15 @@
 import { Dropdown, Space } from "antd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserNinja } from "@fortawesome/free-solid-svg-icons";
 
-function Header({ activeLink, navToSlide, onSignOut}) {
-
+function Header({ activeLink, navToSlide, onSignOut }) {
   const navLinks = () => {
     const links = ["Inspiration", "Your Playlists", "Profile"];
-    const colours = ["inspire-colour", "yourplaylists-colour", "profile-colour"];
+    const colours = [
+      "inspire-colour",
+      "yourplaylists-colour",
+      "profile-colour",
+    ];
     const renderedLinks = [];
 
     for (var i = 0; i < links.length; i++) {
@@ -12,11 +17,15 @@ function Header({ activeLink, navToSlide, onSignOut}) {
         if (index === activeLink) {
           renderedLinks.push(
             <div key={index} className="nav-active-box">
-              <a className={colours[index]}  >{links[index]}</a>
+              <a className={colours[index]}>{links[index]}</a>
             </div>
           );
         } else {
-          renderedLinks.push(<a onClick={() => navToSlide(index)} key={index}>{links[index]}</a>);
+          renderedLinks.push(
+            <a onClick={() => navToSlide(index)} key={index}>
+              {links[index]}
+            </a>
+          );
         }
       })(i);
     }
@@ -28,14 +37,11 @@ function Header({ activeLink, navToSlide, onSignOut}) {
     {
       key: "1",
       label: (
-        <a
-          rel="noopener noreferrer"
-          href="/"
-        >
+        <a rel="noopener noreferrer" href="/">
           Sign Out
         </a>
       ),
-    }
+    },
   ];
 
   return (
@@ -61,8 +67,8 @@ function Header({ activeLink, navToSlide, onSignOut}) {
               >
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                  <div className="white-box-small">
-                  </div>
+                    <div className="white-box-small">
+                    </div>
                   </Space>
                 </a>
               </Dropdown>

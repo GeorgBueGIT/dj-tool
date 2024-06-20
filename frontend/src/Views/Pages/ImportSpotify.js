@@ -6,6 +6,8 @@ import { useNavigate } from "react-router-dom";
 import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getUserPlaylists } from "../../utils/Spotify/GetUserPlaylists";
 import { getSongsFromPlaylist } from "../../utils/Spotify/GetSongsFromPlaylist";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
 
 export default function ImportSpotify() {
   const navigate = useNavigate();
