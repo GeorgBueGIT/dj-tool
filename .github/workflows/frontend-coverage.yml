@@ -1,4 +1,4 @@
-name: 'coverage'
+name: 'frontend-coverage'
 
 on:
   push:
@@ -28,9 +28,4 @@ jobs:
       - name: Run tests with coverage
         run: |
           cd frontend
-          npm run test:ci  # Assuming this script runs the tests and generates the coverage report
-
-      - name: Upload coverage report
-        uses: ArtiomTr/jest-coverage-report-action@v2
-        with:
-          working-directory: frontend
+          npm run test:ci
