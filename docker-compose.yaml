@@ -5,7 +5,9 @@ services:
         - WDS_SOCKET_HOST=127.0.0.1 
         - CHOKIDAR_USEPOLLING=true
         - WATCHPACK_POLLING=true 
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     container_name: frontend
     ports:
       - '3000:3000'
@@ -15,7 +17,9 @@ services:
       - backend
 
   backend:
-    build: ./backend
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
     container_name: backend
     ports:
       - '3001:3001'
