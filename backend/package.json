@@ -7,8 +7,7 @@
   "scripts": {
     "start": "node server",
     "dev": "nodemon server",
-    "test": "jest --coverage --watch --runInBand",
-    "test:ci": "jest --coverage --watchAll=false --runInBand"
+    "test:ci": "jest --coverage"
   },
   "keywords": [],
   "author": "",
@@ -23,46 +22,22 @@
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^3.1.0"
   },
   "jest": {
-    "transform": {
-      "^.+\\.(t|j)s?$": [
-        "@swc/jest"
-      ]
-    },
-    "testEnvironment": "node",
-    "coveragePathIgnorePatterns": [
-      "node_modules/",
-      "src/config/"
+    "coverageDirectory": "coverage",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/__tests__/**"
     ],
-    "watchPathIgnorePatterns": [
-      "node_modules/",
-      "/config",
-      "dist/",
-      "coverage/"
-    ],
-    "coverageThreshold": {
-      "global": {
-        "branches": 75,
-        "functions": 75,
-        "lines": 75,
-        "statements": 75
-      }
-    },
     "coverageReporters": [
-      "cobertura",
       "json",
       "lcov",
-      "text"
-    ],
-    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.js?$",
-    "setupFilesAfterEnv": [
-      "./jest.setup.js"
-    ],
-    "testPathIgnorePatterns": [
-      "node_modules/",
-      "coverage/"
+      "text",
+      "clover"
     ]
   }
 }

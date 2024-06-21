@@ -27,7 +27,7 @@ export default function Recommendations({
       );
     };
     getRecommendations();
-  }, [addedSongsIdsArray]);
+  }, []);
 
   useEffect(() => {
     const getRecommendationDetails = async () => {
