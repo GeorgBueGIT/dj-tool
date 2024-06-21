@@ -23,9 +23,11 @@ jobs:
           - dockerfile: ./frontend/Dockerfile
             image: ghcr.io/georgbuegit/frontend-image
             context: ./frontend
+            is_frontend: true
           - dockerfile: ./backend/Dockerfile
             image: ghcr.io/georgbuegit/backend-image
-            context: ./backend 
+            context: ./backend
+            is_frontend: false
 
     permissions:
       contents: read
@@ -49,6 +51,7 @@ jobs:
           images: ${{ matrix.image }}
 
       - name: Build and push Docker image
+        id: docker-build-push
         uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
         with:
           context: ${{ matrix.context }} 
@@ -57,11 +60,37 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
+  test-frontend:
+    needs: build-and-push-image
+    if: ${{ needs.build-and-push-image.outputs['docker-build-push.is_frontend'] == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
       - name: Install dependencies and run tests (Frontend)
         working-directory: ./frontend
         run: |
-          npm run install
-          npm test:ci
+          npm install
+          npm run test:ci
+
+  test-backend:
+    needs: build-and-push-image
+    if: ${{ needs.build-and-push-image.outputs['docker-build-push.is_frontend'] == 'false' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
       - name: Install dependencies and run tests (Backend)
         working-directory: ./backend
