@@ -56,3 +56,15 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Install dependencies and run tests (Frontend)
+        working-directory: ./frontend
+        run: |
+          npm run install
+          npm test:ci
+
+      - name: Install dependencies and run tests (Backend)
+        working-directory: ./backend
+        run: |
+          npm install
+          npm run test:ci
