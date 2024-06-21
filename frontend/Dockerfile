@@ -1,11 +1,11 @@
-# frontend/Dockerfile
+# Dockerfile Frontend
 FROM node:18-alpine
 
-WORKDIR /code
+WORKDIR /frontend/code
 
-COPY ./frontend/public/ /frontend/code/public
-COPY ./frontend/src/ /frontend/code/src
-COPY ./frontend/package.json /frontend/code/
+COPY ./public/ ./public
+COPY ./src/ ./src
+COPY ./package.json ./
 
 RUN npm install
 
