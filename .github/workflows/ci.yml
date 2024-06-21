@@ -33,9 +33,13 @@ jobs:
       - name: Build Docker Images
         run: |
           docker-compose -f docker-compose.yaml build
+          IMAGE_IDS=$(docker images --filter "label=com.docker.compose.project=<project_name>" --filter "since=24 hours ago" --quiet)
+          echo "::set-env name=IMAGE_IDS::$IMAGE_IDS"
 
       - name: Tag and Push Docker Images
         run: |
           REGISTRY_LOWER=$(echo "${REGISTRY}/${IMAGE_NAME}" | tr '[:upper:]' '[:lower:]')
-          docker tag ${IMAGE_NAME}:latest ${REGISTRY_LOWER}:latest
-          docker push ${REGISTRY_LOWER}:latest
+          for IMAGE_ID in $IMAGE_IDS; do
+            docker tag $IMAGE_ID ${REGISTRY_LOWER}:latest
+            docker push ${REGISTRY_LOWER}:latest
+          done
