@@ -8,18 +8,22 @@ on:
     branches:
       - main
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
-  build-and-push:
+  build-and-push-image:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Login to GitHub Container Registry
+      - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
-          registry: ghcr.io
+          registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
 
@@ -28,5 +32,6 @@ jobs:
 
       - name: Build and Push Docker Images
         run: |
+          docker-compose -f docker-compose.yaml pull
           docker-compose -f docker-compose.yaml build
           docker-compose -f docker-compose.yaml push
