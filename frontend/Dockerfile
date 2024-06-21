@@ -5,7 +5,7 @@ WORKDIR /code
 
 COPY public/ /code/public
 COPY src/ /code/src
-COPY package.json /code/
+COPY ./package.json /code/
 
 RUN npm install
 
