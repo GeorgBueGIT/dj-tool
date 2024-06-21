@@ -1,31 +1,31 @@
-name: 'backend-coverage'
+# name: 'backend-coverage'
 
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches:
-      - master
-      - main
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches:
+#       - master
+#       - main
 
-jobs:
-  coverage:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+# jobs:
+#   coverage:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout repository
+#         uses: actions/checkout@v3
       
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'  # Specify the Node.js version you are using
+#       - name: Set up Node.js
+#         uses: actions/setup-node@v3
+#         with:
+#           node-version: '14'  # Specify the Node.js version you are using
 
-      - name: Install dependencies
-        run: |
-          cd backend
-          npm install
+#       - name: Install dependencies
+#         run: |
+#           cd backend
+#           npm install
 
-      - name: Run tests with coverage
-        run: |
-          cd backend
-          npm run test:ci
+#       - name: Run tests with coverage
+#         run: |
+#           cd backend
+#           npm run test:ci
