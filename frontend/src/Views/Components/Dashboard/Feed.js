@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from "react";
 import PlaylistTile from "../PlaylistTile";
-import ProfileDescription from "../ProfileDescription";
+import { useNavigate } from "react-router-dom";
+import { getUsernameById } from "../../../utils/Database/GetUsernameById";
 import { Spin } from "antd";
-import { EditFilled } from "@ant-design/icons";
 
-function Profile({ headerHeight, userId, userName }) {
+function Feed({ headerHeight, userId, userName }) {
   const [playlistsData, setPlaylistsData] = useState([]);
+
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPlaylists = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/getUserPlaylists?userId=${userId}`,
+          `http://localhost:3001/api/get-recent-followed-playlists?userId=${userId}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -19,55 +22,63 @@ function Profile({ headerHeight, userId, userName }) {
         );
 
         const data = await response.json();
+        console.log(data);
         setPlaylistsData(data);
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }
     };
     fetchPlaylists();
-  }, [userId]);
+  }, []);
+
+  const viewPlaylist = (ID) => {
+    navigate(`/View-playlist?ID=${ID}`);
+  };
+
+  const viewProfile = (ID) => {
+    navigate(`/View-Profile?ID=${ID}`);
+  };
 
   const renderPlaylistTiles = () => {
     if (playlistsData.length === 0) {
       return (
         <div className="my-5 w-100 d-flex align-items-center justify-content-center">
-          <Spin />
+          <b className="no-entries"> No entries found! </b>
         </div>
       );
     }
+
+    
 
     return playlistsData.map((playlist, index) => (
       <PlaylistTile
         key={index}
         title={playlist.Title}
-        imageSrc={playlist.Cover}
-        username={userName}
         description={playlist.Description}
-        showUsername={false}
+        imageSrc={playlist.Cover}
+        username={playlist.Author_ID}
+        tags={playlist.Tags}
+        onClick={() => viewPlaylist(playlist.ID)}
+        onClickUser={() => viewProfile(playlist.Author_ID)}
       />
     ));
   };
 
   return (
-    <div className="col-10 h-100 offset-1 profile-page" id="profile">
+    <div
+      className="col-10 h-100 offset-1 trending-playlists-page"
+      id="trending-playlists"
+    >
       <div className="row h-100 d-flex align-items-center">
         <div className="col-12 col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
-          <h2 className="mb-3"> Your Profile </h2>
-          <h3> See what other people see </h3>
-          <div className="edit-profile-wrapper d-flex gap-4 mt-5">
-            <a href="/Edit-Profile">
-              <div className="edit d-flex justify-content-center align-items-center">
-                <EditFilled />
-              </div>
-            </a>
-          </div>
+          <h2 className="mb-3"> Follower Feed </h2>
+          <h3> See what they made recently </h3>
         </div>
         <div
           className="col-12 col-lg-6 h-100 d-flex align-items-center"
           style={{ paddingTop: headerHeight + "px" }}
         >
           <div className="content-frame mh-100 w-100">
-            <ProfileDescription userId={userId} />
             {renderPlaylistTiles()}
           </div>
         </div>
@@ -76,4 +87,4 @@ function Profile({ headerHeight, userId, userName }) {
   );
 }
 
-export default Profile;
+export default Feed;

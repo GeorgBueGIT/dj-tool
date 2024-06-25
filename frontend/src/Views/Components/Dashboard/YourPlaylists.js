@@ -2,21 +2,19 @@ import React, { useState, useEffect } from "react";
 import PlaylistTile from "../PlaylistTile";
 import Spotify from "../../../resources/Logos/Spotify.png";
 import Soundcloud from "../../../resources/Logos/Soundcloud.jpg";
-import { getUsernameById } from "../../../utils/Database/GetUsernameById";
 import { useNavigate } from "react-router-dom";
 import {Spin} from "antd";
 
-function YourPlaylists({ headerHeight }) {
+function YourPlaylists({ headerHeight, userId, userName }) {
   const [playlistsData, setPlaylistsData] = useState([]);
   const navigate = useNavigate();
 
-  const username = "Root";
 
   useEffect(() => {
     const fetchPlaylists = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/getUserPlaylists?username=${username}`,
+          `http://localhost:3001/api/getUserPlaylists?userId=${userId}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -30,7 +28,7 @@ function YourPlaylists({ headerHeight }) {
       }
     };
     fetchPlaylists();
-  }, []);
+  }, [userId]);
 
   const editPlaylist = (ID) => {
     console.log("ID: " + ID);
@@ -40,7 +38,7 @@ function YourPlaylists({ headerHeight }) {
   const renderPlaylistTiles = () => {
     if (playlistsData.length === 0) {
       return (
-        <div className="mt-5 w-100 d-flex align-items-center justify-content-center">
+        <div className="my-5 w-100 d-flex align-items-center justify-content-center">
           <Spin />
         </div>
       );
@@ -52,9 +50,10 @@ function YourPlaylists({ headerHeight }) {
         title={playlist.Title}
         description={playlist.Description}
         imageSrc={playlist.Cover}
-        username={username}
+        username={userName}
         tags={playlist.Tags}
         onClick={() => editPlaylist(playlist.ID)}
+        showUsername={false}
       />
     ));
   };
@@ -88,7 +87,7 @@ function YourPlaylists({ headerHeight }) {
           </div>
         </div>
         <div
-          className="col-12 col-lg-6 h-100"
+          className="col-12 col-lg-6 h-100 d-flex align-items-center"
           style={{ paddingTop: headerHeight + "px" }}
         >
           <div className="content-frame mh-100 w-100">

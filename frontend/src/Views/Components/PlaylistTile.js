@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import PlaylistCoverTest from "../../resources/Images/PlaylistCoverTest.jpeg";
 import { getGenreById } from "../../utils/GetGenreById";
-import { Progress } from "antd";
+import { getUsernameById } from "../../utils/Database/GetUsernameById";
 
 export default function PlaylistTile({
   title = "Empty Title",
   description = "Empty Description",
   imageSrc = "",
-  username = "",
+  username,
   tags = "",
   onClick,
+  showUsername = true,
+  onClickUser,
 }) {
   const [tagFormatted, setTagFormatted] = useState("");
+  const [userName, setUserName] = useState(username);
 
   useEffect(() => {
     if (tags) {
@@ -23,10 +25,24 @@ export default function PlaylistTile({
 
   const getTheExcerpt = (text, limit = 20) => {
     if (text.length > limit) {
-      return text.slice(0, limit) + '...';
+      return text.slice(0, limit) + "...";
     }
     return text;
   };
+
+  const handleUserClick = (event) => {
+    event.stopPropagation();
+    onClickUser();
+  };
+
+  useEffect(() => {
+    const convertToUsername = async () => {
+      setUserName(await getUsernameById(userName));
+    };
+    if (typeof userName === "number") {
+      convertToUsername();
+    }
+  }, []);
 
   return (
     <div className="playlist-tile m-3 p-3" id="playlist-tile" onClick={onClick}>
@@ -51,9 +67,13 @@ export default function PlaylistTile({
               <div className="col">
                 <p> {getTheExcerpt(description)} </p>
               </div>
-              <div className="col text-end">
-                <b> @{username} </b>
-              </div>
+              {showUsername && (
+                <div className="col d-flex justify-content-end">
+                  <div className="username-container px-2 py-1 text-center">
+                    <b onClick={handleUserClick}> @{userName} </b>
+                  </div>
+                </div>
+              )}
             </div>
             {/* <div className="playlist-stats col-12 d-flex justify-content-between align-items-end">
               <div className="fit-content pe-3 mb-0">

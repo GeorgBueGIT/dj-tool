@@ -14,48 +14,6 @@
         overflow-y: scroll;
     }
 
-    .title-input {
-        background-color: transparent;
-        border: none;
-        font-family: "Black Ops One", system-ui;
-        font-size: calc(100% + 2.0vw);
-        color: $secondary;
-    }
-
-    .title-input::placeholder {
-        color: #aeaeae;
-      }
-
-    .title-input:hover {
-        background-color: #5a5a5a;
-    }
-
-    .title-input:focus {
-        box-shadow: none;
-        background-color: #5a5a5a;
-    }
-
-    .description-input {
-        background-color: transparent;
-        border: none;
-        font-size: calc(100% + 1.0vw);
-        color: $secondary;
-        font-weight: bold;
-    }
-
-    .description-input::placeholder {
-        color: #6b6b6b;
-    }
-
-    .description-input:hover {
-        background-color: #5a5a5a;
-    }
-
-    .description-input:focus {
-        box-shadow: none !important;
-        background-color: #5a5a5a;
-    }
-
     .search-input {
         background-color: rgb(0, 0, 0);
         border: none;
@@ -100,8 +58,6 @@
     .save:hover {
         cursor: pointer;
     }
-
-
 
     .add-playlist-thumbnail {
         aspect-ratio: 1 / 1;

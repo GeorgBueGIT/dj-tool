@@ -1,28 +1,37 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Login from "../Components/Auth/Login";
 import Register from "../Components/Auth/Register";
 import Alert from "../Components/Alert"
 import { useAuth } from "../../Auth/AuthProvider";
 
 export default function Start() {
-  const navigate = useNavigate();
   const [isLogin, setIsLogin] = useState(true);
-  const [showAlert, setShowAlert] = useState(false);
+
+  const [showLoginAlert, setShowLoginAlert] = useState(false);
+  const [showRegisterAlert, setShowRegisterAlert] = useState(false);
 
   const toggleForm = () => {
     setIsLogin(!isLogin);
   };
 
   const auth = useAuth();
+
+  const triggerLoginAlert = () => {
+    setShowLoginAlert(true);
+    setTimeout(() => {
+      setShowLoginAlert(false);
+    }, 3000);
+  }
+  
   const onFinishLogin = async (values) => {
     const { username, password } = values;
-    auth.loginAction(username, password);
+    auth.loginAction(username, password, triggerLoginAlert);
   };
 
-  const onFinishRegister = async (values) => {
-    console.log("Received values of form: ", values);
 
+
+  const onFinishRegister = async (values) => {
+    // console.log("Received values of form: ", values);
     const { username, password } = values;
     const response = await fetch("http://localhost:3001/api/register", {
       method: "POST",
@@ -30,16 +39,16 @@ export default function Start() {
       body: JSON.stringify({ username, password }),
     });
     
-    await response.json();
+    const res = await response.json();
+    console.log(res);
 
     if (response.status === 200) {
-      navigate("/Dashboard");
+      setIsLogin(true);
     }
-    if (response.status === 401) {
-      console.log("Not Valid Credentials!");
-      setShowAlert(true);
+    if (response.status === 500) {
+      setShowRegisterAlert(true);
       setTimeout(() => {
-        setShowAlert(false);
+        setShowRegisterAlert(false);
       }, 3000);
     }
   };
@@ -49,7 +58,8 @@ export default function Start() {
       className="position-relative d-flex justify-content-center"
       id="login-page"
     >
-      <Alert showAlert={showAlert} msg={'Invalid Credentials!'} />
+      <Alert showAlert={showLoginAlert} msg={'Invalid Credentials!'} />
+      <Alert showAlert={showRegisterAlert} msg={'Username already taken!'} />
 
       <Login isActive={isLogin} toggleForm={toggleForm} onFinish={onFinishLogin} />
       <Register

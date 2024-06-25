@@ -1,16 +1,9 @@
 import { Dropdown, Space } from "antd";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../Auth/AuthProvider";
 
 function Header({ activeLink, navToSlide }) {
   const navLinks = () => {
-    const links = ["Inspiration", "Your Playlists", "Profile"];
-    const colours = [
-      "inspire-colour",
-      "yourplaylists-colour",
-      "profile-colour",
-    ];
+    const links = ["Inspiration", "Feed", "Your Playlists", "Profile"];
     const renderedLinks = [];
 
     for (var i = 0; i < links.length; i++) {
@@ -18,7 +11,7 @@ function Header({ activeLink, navToSlide }) {
         if (index === activeLink) {
           renderedLinks.push(
             <div key={index} className="nav-active-box">
-              <a className={colours[index]}>{links[index]}</a>
+              <a>{links[index]}</a>
             </div>
           );
         } else {

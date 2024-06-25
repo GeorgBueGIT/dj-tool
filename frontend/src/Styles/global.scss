@@ -99,5 +99,62 @@ h1, h2, h3, h4, h5, h6, b, p, a {
 
 .back:hover, .save:hover {
     opacity: .5;
+    cursor: pointer;
+}
+
+.back {
+    top: 50%;
+    left: 3%;
+}
+
+.save {
+    top: 50%;
+    right: 3%;
+}
+
+.title-input {
+    background-color: transparent;
+    border: none;
+    font-family: "Black Ops One", system-ui;
+    font-size: calc(100% + 2.0vw);
+    color: $secondary;
+}
+
+.title-input::placeholder {
+    color: #aeaeae;
+  }
+
+.title-input:hover {
+    background-color: #5a5a5a;
+}
+
+.title-input:focus {
+    box-shadow: none;
+    background-color: #5a5a5a;
+}
+
+.description-input {
+    background-color: transparent;
+    border: none;
+    font-size: calc(100% + 1.0vw);
+    color: $secondary;
+    font-weight: bold;
+}
+
+.description-input::placeholder {
+    color: #6b6b6b;
+}
+
+.description-input:hover {
+    background-color: #5a5a5a;
+}
+
+.description-input:focus {
+    box-shadow: none !important;
+    background-color: #5a5a5a;
+}
+
+.ant-input-disabled {
+    color: rgb(245, 245, 245) !important;
 }
 

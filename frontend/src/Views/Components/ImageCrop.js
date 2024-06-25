@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect, useImperativeHandle } from "react";
+import React, { useState, useRef, useImperativeHandle } from "react";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "../../utils/ImageCropHelper";
 import { CameraFilled } from "@ant-design/icons";
@@ -13,8 +13,6 @@ const ImageCrop = React.forwardRef((props, ref) => {
   const [imgSrc, setImgSrc] = useState(null);
   const [croppedImageBlob, setCroppedImageBlob] = useState(null);
   const [showCropper, setShowCropper] = useState(true);
-
-  const [uploadButtonHeight, setUploadButtonHeight] = useState(0);
   const uploadButtonRef = useRef(null);
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
@@ -74,12 +72,6 @@ const ImageCrop = React.forwardRef((props, ref) => {
       console.error("Error uploading image:", error);
     }
   };
-
-  useEffect(() => {
-    if (uploadButtonRef.current) {
-      setUploadButtonHeight(uploadButtonRef.current.clientHeight);
-    }
-  }, [uploadButtonRef.current]);
 
   const handleClick = (event) => {
     if (event.target.className === "backgroundOverlay") {

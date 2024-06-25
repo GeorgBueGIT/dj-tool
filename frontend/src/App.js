@@ -5,7 +5,9 @@ import Access from "./Views/Pages/Access";
 import CreatePlaylist from "./Views/Pages/CreatePlaylist";
 import ImportSpotify from "./Views/Pages/ImportSpotify";
 import ViewPlaylist from "./Views/Pages/ViewPlaylist";
+import ViewProfile from "./Views/Pages/ViewProfile";
 import EditPlaylist from "./Views/Pages/EditPlaylist";
+import EditProfile from "./Views/Pages/EditProfile";
 import AuthProvider from "./Auth/AuthProvider";
 import PrivateRoute from "./Auth/PrivateRoutes";
 import { Spin } from "antd";
@@ -54,7 +56,9 @@ function App() {
                 <Route exact path="/Create" element={<CreatePlaylist />} />
                 <Route exact path="/Import-Spotify" element={<ImportSpotify />} />
                 <Route exact path="/View-Playlist" element={<ViewPlaylist />} />
+                <Route exact path="/View-Profile" element={<ViewProfile />} />
                 <Route exact path="/Edit-Playlist" element={<EditPlaylist />} />
+                <Route exact path="/Edit-Profile" element={<EditProfile />} />
               </Route>
             </Routes>
           </AuthProvider>

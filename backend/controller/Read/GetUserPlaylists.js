@@ -1,13 +1,11 @@
-import database from "../config/database.js";
-import config from "../config/config.js";
-import getUserIdByName from "../helper/getUserIdByName.js";
+import database from "../../config/database.js";
+import config from "../../config/config.js";
+import getUserIdByName from "../../helper/getUserIdByName.js";
 
 export const userplaylists = async (req, res) => {
-  const { username } = req.query;
+  const { userId } = req.query;
 
   try {
-    const userId = await getUserIdByName(username);
-
     const query = "SELECT * FROM playlists WHERE Author_ID = ?";
 
     // const query = `

@@ -6,4 +6,23 @@
     .description {
         font-size: 130% !important;
     }
+
+    .follow-button {
+        user-select: none;
+    }
+
+    .follow-button.follow {
+        background-color: orange;
+        border-radius: 10px;
+    }
+
+    .follow-button.followed {
+        background-color: #313131;
+        border-radius: 10px;
+    }
+    
+    .follow-button:hover {
+        background-color: #282828;
+        cursor: pointer;
+    }
 }

@@ -25,6 +25,8 @@ PRofil anlegen nach Registrierung
 Profil bearbeiten
 
 
+Profil löschen (easy points oder?)
+
 
 ? Mobile Responsiveness
 ? Man kann viel mit der Api nochmachen (wem folgen, songs liken, ...)

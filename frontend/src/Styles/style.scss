@@ -10,8 +10,8 @@
 @import "Pages/CreatePlaylist";
 @import "Pages/EditPlaylist";
 @import "Pages/ViewPlaylist";
+@import "Pages/EditProfile";
 @import "Pages/ImportSpotify";
-@import "Partials/header-minimal";
 @import "Partials/header";
 @import "Components/songlist";
 @import "Components/playlist-tile";
@@ -22,3 +22,4 @@
 @import "Components/image-crop";
 @import "Components/song-tile";
 @import "Components/profile-description";
+@import "Components/recommendations";

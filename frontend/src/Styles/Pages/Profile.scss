@@ -1,103 +1,20 @@
 #profile {
-
-    $page-color: #F34C4C;
-
-    height: 100vh !important;
-
-    h2 {
-        font-size: 96px;
-        font-weight: bold !important;
-        color: $page-color;
-    }
-
-    h3 {
-        font-size: 64px;
-        font-weight: bold !important;
-        color: $page-color;
-    }
-
-    .trending-playlists-frame {
-        background-color: black;
-    }
-
-    .nav-left::before {
-        content: " ";
-        border-left: 15px solid #fff;
-        border-bottom: 15px solid #ffffff51;
-        width: 30px;
-        height: 30px;
-        transform: rotate(45deg);
-        cursor: pointer;
-        display: block;
-    }
-    
-    .nav-right::before {
-        content: " ";
-        border-right: 15px solid #ffffff;
-        border-top: 15px solid #ffffff51;
-        width: 30px;
-        height: 30px;
-        transform: rotate(45deg);
-        cursor: pointer;
-        display: block;
-    }
-
-    .trending-playlists-frame {
-        border-radius: 10px;
-        padding: 2rem;
-        overflow-y: scroll;
-    }
-
-    .playlist-tile {
-        background-color: #3b3b3b;
-        height: 200px;
-        border-radius: 10px;
-    }
-
-    .playlist-cover {
-        aspect-ratio: 1 / 1;
-        object-fit: cover;
-        border-radius: 10px;
-    }
-
-    .playlist-headline-combo { 
-        h3, p {
-            width: fit-content;
-        }
-
-        h3 {
-            color: #C9C5C5;
-        }
-
-        p {
-            color: #818181;
-        }
-    }
-
-    .add-playlists-wrapper {
+    .edit-profile-wrapper {
         div {
             height: 10rem;
             width: 10rem;
             background-color: black;
             border-radius: 10px;
             font-size: 96px;
-        }
-    }
 
-    .profile-description {
-        img {
-            height: 15rem;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-
-        h3 {
-            width: fit-content;
-        }
-
-        b {
-            font-size: 24px;
-            color: #474747;
+            &:hover {
+                background-color: rgb(115, 115, 115);
+            }
+        }            
+        
+        a {
+            color: white !important;
+            text-decoration: none !important;
         }
     }
 }

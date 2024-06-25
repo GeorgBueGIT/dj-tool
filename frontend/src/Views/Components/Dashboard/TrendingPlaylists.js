@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import PlaylistTile from "../PlaylistTile";
-import { DownCircleFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDice, faTag } from "@fortawesome/free-solid-svg-icons";
@@ -36,8 +35,11 @@ function TrendingPlaylists({ headerHeight }) {
   }, [randomize, filterTag]);
 
   const viewPlaylist = (ID) => {
-    console.log("ID: " + ID);
     navigate(`/View-playlist?ID=${ID}`);
+  };
+
+  const viewProfile = (ID) => {
+    navigate(`/View-Profile?ID=${ID}`);
   };
 
   const renderPlaylistTiles = () => {
@@ -58,12 +60,12 @@ function TrendingPlaylists({ headerHeight }) {
         username={playlist.username}
         tags={playlist.Tags}
         onClick={() => viewPlaylist(playlist.ID)}
+        onClickUser={() => viewProfile(playlist.Author_ID)}
       />
     ));
   };
 
   const [descriptionTags, setDescriptionTags] = useState([]);
-  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     const fetchTags = async () => {

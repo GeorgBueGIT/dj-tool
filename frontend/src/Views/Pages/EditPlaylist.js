@@ -11,6 +11,7 @@ import { getPlaylistDetails } from "../../utils/Database/GetPlaylistDetails";
 import { getSong } from "../../utils/Spotify/GetSong";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { getCurrentDate } from "../../utils/GetCurrentDate";
 const { TextArea } = Input;
 
 export default function CreatePlaylist() {
@@ -99,7 +100,7 @@ export default function CreatePlaylist() {
       setPlaylistDetailsObj(await getPlaylistDetails(ID));
     };
     setPlaylistObj();
-  }, []);
+  }, [ID]);
 
   useEffect(() => {
     if (playlistDetailsObj) {
@@ -134,6 +135,7 @@ export default function CreatePlaylist() {
       title: title,
       tags: selectedTags.map((tag) => tag).join(", "), // Assuming selectedTags is an array of objects with an 'id' property
       playlistId: ID,
+      date: getCurrentDate()
     };
 
     if (description) {
@@ -191,6 +193,16 @@ export default function CreatePlaylist() {
       await getSong(searchInput, spotifyAccessToken),
     ]);
     setSearchInput("");
+  };
+
+  const removeSong = (id) => {
+    console.log("Removing ID:" + id);
+    setAddedSongsIdsArray((prevArray) => prevArray.filter(songId => songId !== id));
+  };
+
+  const addRecommendation = (id) => {
+    console.log("Add Recommendation:" + id);
+    setAddedSongsIdsArray((prevArray) => [...prevArray, id]);
   };
 
   return (
@@ -273,6 +285,8 @@ export default function CreatePlaylist() {
                         ref={songListRef}
                         addedSongsIdsArray={addedSongsIdsArray}
                         spotifyAccessToken={spotifyAccessToken}
+                        allowRemove={true}
+                        removeSong={removeSong}
                       />
                     )}
                   </div>
@@ -282,6 +296,7 @@ export default function CreatePlaylist() {
                       <Recommendations
                         addedSongsIdsArray={addedSongsIdsArray}
                         spotifyAccessToken={spotifyAccessToken}
+                        addRecommendation={addRecommendation}
                       />
                     )}
                   </div>

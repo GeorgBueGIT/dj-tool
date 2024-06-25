@@ -1,5 +1,5 @@
-import database from "../config/database.js";
-import config from "../config/config.js";
+import database from "../../config/database.js";
+import config from "../../config/config.js";
 
 export const getRandomPlaylists = async (req, res) => {
   const { tagId } = req.query;

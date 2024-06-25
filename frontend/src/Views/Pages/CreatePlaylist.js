@@ -9,6 +9,8 @@ import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getSong } from "../../utils/Spotify/GetSong";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFloppyDisk, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { useAuth } from "../../Auth/AuthProvider";
+import { getCurrentDate } from "../../utils/GetCurrentDate";
 const { TextArea } = Input;
 
 export default function CreatePlaylist() {
@@ -17,6 +19,14 @@ export default function CreatePlaylist() {
   const [searchInput, setSearchInput] = useState("");
   const [addedSongsIdsArray, setAddedSongsIdsArray] = useState([]);
   const songListRef = useRef(null);
+
+  const [userId, setUserId] = useState(null);
+
+  const user = useAuth();
+
+  useEffect(() => {
+    setUserId(user.user.id);
+  }, [user]);
 
   const [descriptionTags, setDescriptionTags] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
@@ -104,8 +114,10 @@ export default function CreatePlaylist() {
     console.log("Tags: " + selectedTags.map((tag) => tag).join(", "));
 
     const requestBody = {
+      authorId: userId,
       title: title,
       tags: selectedTags.map((tag) => tag).join(", "), // Assuming selectedTags is an array of objects with an 'id' property
+      date: getCurrentDate()
     };
     
     if (description) {

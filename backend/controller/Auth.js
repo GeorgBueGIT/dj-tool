@@ -18,8 +18,6 @@ export const login = (req, res) => {
 
     const user = results[0];
 
-    console.log(user.ID);
-
     if (user.Password === password) {
       const token = jwt.sign({ id: user.ID }, "your-secret-key", {
         expiresIn: "1h",

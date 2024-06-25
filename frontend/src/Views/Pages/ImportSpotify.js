@@ -1,18 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "antd";
-import { Spin } from "antd";
 import Alert from "../Components/Alert";
 import { useNavigate } from "react-router-dom";
 import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getUserPlaylists } from "../../utils/Spotify/GetUserPlaylists";
 import { getSongsFromPlaylist } from "../../utils/Spotify/GetSongsFromPlaylist";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { getCurrentDate } from "../../utils/GetCurrentDate";
+import { useAuth } from "../../Auth/AuthProvider";
 
 export default function ImportSpotify() {
   const navigate = useNavigate();
   const [spotifyAccessToken, setSpotifyAccessToken] = useState("");
-  const [userId, setUserId] = useState("");
+  const [spotifyUserId, setSpotifyUserId] = useState("");
   const [playlists, setPlaylists] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
   const [playlistTracks, setPlaylistTracks] = useState("");
@@ -22,13 +21,20 @@ export default function ImportSpotify() {
     const fetchAccessToken = async () => {
       const accessToken = await getSpotifyAccessToken();
       setSpotifyAccessToken(accessToken);
-      console.log("Fetched AccessToken: " + accessToken);
     };
     fetchAccessToken();
   }, []);
 
+  const [userId, setUserId] = useState(null);
+
+  const user = useAuth();
+
+  useEffect(() => {
+    setUserId(user.user.id);
+  }, [user]);
+
   const fetchUserPlaylist = async () => {
-    setPlaylists(await getUserPlaylists(userId, spotifyAccessToken));
+    setPlaylists(await getUserPlaylists(spotifyUserId, spotifyAccessToken));
   };
 
   const importPlaylist = async (id) => {
@@ -42,18 +48,14 @@ export default function ImportSpotify() {
     setPlaylistTracks(playlistsTracksCSV);
   };
 
-  useEffect(() => {
-    if (playlistTracks) {
-      insertSpotifyPlaylist();
-    }
-  }, [playlistTracks]);
-
   const insertSpotifyPlaylist = async () => {
     const requestBody = {
       title: selectedPlaylist.name,
       description: selectedPlaylist.description,
       imageSrc: selectedPlaylist.images[0].url,
       songs: playlistTracks,
+      userId: userId,
+      date: getCurrentDate()
     };
 
     const response = await fetch(
@@ -80,6 +82,12 @@ export default function ImportSpotify() {
     }
   };
 
+  useEffect(() => {
+    if (playlistTracks) {
+      insertSpotifyPlaylist();
+    }
+  }, [playlistTracks, insertSpotifyPlaylist]);
+
   return (
     <div
       className="import-spotify-playlist d-flex justify-content-center vh-100"
@@ -90,13 +98,13 @@ export default function ImportSpotify() {
         <Input
           placeholder="Your Spotify User-ID ..."
           className="mb-3 title-input text-center"
-          value={userId}
+          value={spotifyUserId}
           onKeyPress={(event) => {
             if (event.key === "Enter") {
               fetchUserPlaylist();
             }
           }}
-          onChange={(event) => setUserId(event.target.value)}
+          onChange={(event) => setSpotifyUserId(event.target.value)}
         />
         <div className="row mh-100 overflow-scroll">
           {playlists &&

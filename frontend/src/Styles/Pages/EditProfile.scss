@@ -1,0 +1,36 @@
+#edit-profile {
+
+    background-color: rgb(0, 0, 0);
+    background-image: url("../../resources//Wallpapers/background.jpg");
+    background-size: cover;
+    padding: 5% 0;
+
+    .content-frame {
+        background-color: black;
+        border-radius: 10px;
+        overflow-y: scroll;
+    }
+
+    h3 {
+        font-size: calc(100% + 1.5vw);
+        font-weight: bold !important;
+        color: var(--page-color);
+    }
+
+    .profile-description {
+        img {
+            height: 25vh;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        h3 {
+            width: fit-content;
+        }
+
+        b {
+            font-size: 24px;
+            color: #474747;
+        }
+    }
+}

@@ -1,7 +1,6 @@
 import React, {
   useEffect,
   useState,
-  useRef,
   forwardRef,
   useImperativeHandle,
 } from "react";
@@ -30,13 +29,17 @@ import {
 import Song from "./SongTile";
 
 const SongList = forwardRef(
-  ({ addedSongsIdsArray, spotifyAccessToken, allowSort = true }, ref) => {
+  ({ addedSongsIdsArray, spotifyAccessToken, allowSort = true, allowRemove = true, removeSong}, ref) => {
     const [items, setItems] = useState(null);
 
     const [itemsFeatures, setItemsFeatures] = useState([]);
 
     const sensors = useSensors(
-      useSensor(PointerSensor),
+      useSensor(PointerSensor, {
+        activationConstraint: {
+          distance: 5,
+        },
+      }),
       useSensor(KeyboardSensor, {
         coordinateGetter: sortableKeyboardCoordinates,
       })
@@ -133,6 +136,8 @@ const SongList = forwardRef(
                     duration={itemsFeatures[index]?.duration_ms}
                     danceability={itemsFeatures[index]?.danceability}
                     energy={itemsFeatures[index]?.energy}
+                    allowRemove={allowRemove}
+                    removeSong={removeSong}
                   />
                 ))}
             </SortableContext>

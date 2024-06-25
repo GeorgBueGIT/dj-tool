@@ -1,7 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
+import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { DeleteOutlined } from "@ant-design/icons";
+import { DeleteFilled, PlusCircleFilled } from "@ant-design/icons";
 
 const camelotMajor = {
   0: "8B", // C major
@@ -70,8 +70,13 @@ export default function Song(props) {
     const totalSeconds = Math.floor(duration / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
+
+  const onAddRecommendation = () => {
+    props.addRecommendation(props.id);
+    props.removeRecommendation(props.id);
+  }
 
   return (
     <div
@@ -83,7 +88,7 @@ export default function Song(props) {
     >
       <div className="song m-2" id="song">
         <div className="song-wrapper py-0">
-          <div className="row p-2">
+          <div className="row p-2 align-items-center">
             <div className="col-1 d-flex align-items-center">
               <img className="song-cover" src={props.cover} alt="Song Cover" />
             </div>
@@ -95,11 +100,30 @@ export default function Song(props) {
               <b className="darker"> {Math.floor(props.bpm)} bpm </b>
             </div>
             <div className="col d-flex align-items-center justify-content-end">
-              <b className="darker"> {getCamelotNotation(props.songkey, props.mode)} </b>
+              <b className="darker">
+                {" "}
+                {getCamelotNotation(props.songkey, props.mode)}{" "}
+              </b>
             </div>
             <div className="col d-flex align-items-center justify-content-end pe-3">
               <b className="darker"> {formatDuration(props.duration)} </b>
             </div>
+            {props.allowRemove && props.allowRemove === true && (
+              <div
+                className="d-flex align-items-center justify-content-end mx-3 p-2 operational-button-song"
+                onClick={() => props.removeSong(props.id)}
+              >
+                <DeleteFilled />
+              </div>
+            )}
+            {props.addRecommendation  && props.removeRecommendation && (
+              <div
+                className="d-flex align-items-center justify-content-end mx-3 p-2 operational-button-song"
+                onClick={() => onAddRecommendation()}
+              >
+                <PlusCircleFilled />
+              </div>
+            )}
           </div>
         </div>
       </div>

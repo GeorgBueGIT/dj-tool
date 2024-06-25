@@ -9,7 +9,7 @@ export const getUsernameById = async (userId) => {
         );
 
         const data = await response.json();
-        console.log(data);
+        return data.Username;
       } catch (error) {
         console.error("Error fetching playlists:", error);
       }

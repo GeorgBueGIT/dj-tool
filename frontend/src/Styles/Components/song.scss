@@ -24,5 +24,18 @@
     .darker {
         color: #141414;
     }
+
+    .operational-button-song {
+        background-color: rgb(31, 31, 31);
+        width: fit-content;
+        border-radius: 10px;
+        height: fit-content;
+        color: rgb(182, 182, 182);
+
+    }
+
+    .operational-button-song:hover {
+        background-color: orange;
+    }
 }
 

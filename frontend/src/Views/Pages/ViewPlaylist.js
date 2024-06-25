@@ -8,12 +8,16 @@ import ImageCrop from "../Components/ImageCrop";
 import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getPlaylistDetails } from "../../utils/Database/GetPlaylistDetails";
 import { getSong } from "../../utils/Spotify/GetSong";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBackward } from "@fortawesome/free-solid-svg-icons";
 const { TextArea } = Input;
+
 
 export default function ViewPlaylist() {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const ID = searchParams.get("ID");
+  const navigate = useNavigate();
 
   const [playlistDetailsObj, setPlaylistDetailsObj] = useState(null);
   const [spotifyAccessToken, setSpotifyAccessToken] = useState("");
@@ -22,7 +26,6 @@ export default function ViewPlaylist() {
     const fetchAccessToken = async () => {
       const accessToken = await getSpotifyAccessToken();
       setSpotifyAccessToken(accessToken);
-      console.log("Fetched AccessToken: " + accessToken);
     };
     fetchAccessToken();
   }, []);
@@ -33,6 +36,11 @@ export default function ViewPlaylist() {
     };
     setPlaylistObj();
   }, []);
+
+  const goBack = () => {
+    navigate("/Dashboard");
+  };
+
 
   return (
     <div
@@ -47,10 +55,13 @@ export default function ViewPlaylist() {
           <div className="px-5">
             <div className="row vh100 d-flex align-items-center py-6">
               <div className="col-2 h-100">
-                <a href="/Dashboard" className="position-fixed back">
-                  {" "}
-                  Back{" "}
-                </a>
+              <div onClick={goBack} className="position-fixed back">
+                    <FontAwesomeIcon
+                      className="px-3"
+                      fontSize={"32px"}
+                      icon={faBackward}
+                    />
+                  </div>
               </div>
               <div className="col-8 playlist-frame mh-100">
                 <div className="playlist-frame-header mb-5 p-2 pt-4 d-flex justify-content-between">
@@ -83,6 +94,7 @@ export default function ViewPlaylist() {
                     addedSongsIdsArray={playlistDetailsObj[0].Songs_Sorted.split(', ')}
                     spotifyAccessToken={spotifyAccessToken}
                     allowSort={false}
+                    allowRemove={false}
                   />
               </div>
 
