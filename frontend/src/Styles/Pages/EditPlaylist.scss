@@ -6,4 +6,15 @@
         background-color: #3b3b3b;
         background-size: cover;
     }
+
+    .auto-sort {
+        background-color: rgb(26, 26, 26);
+        border-radius: 10px;
+        width: fit-content;
+    }
+
+    .auto-sort:hover {
+        background-color: orange;
+        cursor: pointer;
+    }
 }

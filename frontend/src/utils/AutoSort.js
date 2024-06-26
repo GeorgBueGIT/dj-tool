@@ -64,7 +64,7 @@ const getCamelotNotation = (key, mode) => {
   } else if (mode === 1) {
     return camelotMinor[key];
   } else {
-    return null; // Invalid mode
+    return null;
   }
 };
 
@@ -77,7 +77,6 @@ const getIndexOf = (songArr, checkForSong) => {
 };
 
 let BPMTRESHOLD;
-
 const bpmInRange = (bpm1, bpm2) => {
   if (bpm1 >= bpm2) {
     return bpm2 + BPMTRESHOLD >= bpm1;
@@ -90,7 +89,7 @@ const bpmDifference = (bpm, bpmCompare) => {
   return Math.abs(bpm - bpmCompare);
 };
 
-export const autoSort = async (songIds, spotifyAccessToken, maxJump = 10) => {
+export const autoSort = async (songIds, spotifyAccessToken, maxJump = 5) => {
   BPMTRESHOLD = maxJump;
 
   try {
@@ -106,7 +105,6 @@ export const autoSort = async (songIds, spotifyAccessToken, maxJump = 10) => {
 
     let combinedSongs;
 
-    // Combine the arrays by matching the song IDs
     try {
       combinedSongs = trackDetails.map((track) => {
         const details = audioFeatures.find(
@@ -119,8 +117,6 @@ export const autoSort = async (songIds, spotifyAccessToken, maxJump = 10) => {
       return songIds;
     }
 
-    // console.log(combinedSongs);
-
     combinedSongs.sort((a, b) => Math.floor(a.tempo) - Math.floor(b.tempo));
 
     for (let i = 0; i < combinedSongs.length - 1; i++) {
@@ -132,6 +128,7 @@ export const autoSort = async (songIds, spotifyAccessToken, maxJump = 10) => {
         currentSongMode
       );
       const currentSongBpm = Math.floor(currentSong.tempo);
+
       const matchingSongs = [];
 
       for (let j = i + 1; j < combinedSongs.length - 1; j++) {
@@ -157,15 +154,12 @@ export const autoSort = async (songIds, spotifyAccessToken, maxJump = 10) => {
           const indexOfMatch = getIndexOf(combinedSongs, matchingSongs[0]);
           combinedSongs[i + 1] = matchingSongs[0];
           combinedSongs[indexOfMatch] = saveValue;
-          break;
         } else {
           matchingSongs.sort(
             (a, b) =>
               bpmDifference(Math.floor(a.tempo), currentSongBpm) -
               bpmDifference(Math.floor(b.tempo), currentSongBpm)
           );
-
-          console.log(matchingSongs);
 
           let foundMatchingSong = false;
           matchingSongs.forEach((song) => {

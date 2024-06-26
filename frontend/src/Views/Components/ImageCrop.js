@@ -1,4 +1,4 @@
-import React, { useState, useRef, useImperativeHandle } from "react";
+import React, { useState, useRef, useEffect, useImperativeHandle } from "react";
 import Cropper from "react-easy-crop";
 import { getCroppedImg } from "../../utils/ImageCropHelper";
 import { CameraFilled } from "@ant-design/icons";
@@ -13,16 +13,26 @@ const ImageCrop = React.forwardRef((props, ref) => {
   const [imgSrc, setImgSrc] = useState(null);
   const [croppedImageBlob, setCroppedImageBlob] = useState(null);
   const [showCropper, setShowCropper] = useState(true);
+  const [coverHeight, setCoverHeight] = useState();
   const uploadButtonRef = useRef(null);
 
   ASPECT_RATIO = props.ratio || 1;
+
+  useEffect(() => {
+    if (props.imgSrc) {
+      setImgSrc(props.imgSrc);
+      setShowCropper(false);
+    }
+    if (props.coverHeight) {
+      setCoverHeight(props.coverHeight);
+    }
+  }, [props]);
 
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
   const showCroppedImage = async () => {
-    console.log("happend");
     try {
       const croppedImage = await getCroppedImg(imgSrc, croppedAreaPixels);
       const croppedImageBlob = await fetch(croppedImage).then((res) =>
@@ -88,7 +98,7 @@ const ImageCrop = React.forwardRef((props, ref) => {
 
   if (ASPECT_RATIO === 1) {
     return (
-      <div id="image-crop-playlist" className="pe-2">
+      <div id="image-crop-playlist" className="">
         <input
           type="file"
           accept="image/*"
@@ -102,6 +112,7 @@ const ImageCrop = React.forwardRef((props, ref) => {
             style={{
               // width: `${uploadButtonHeight}px`,
               backgroundImage: `url(${imgSrc})`,
+              minWidth: `${coverHeight}px`,
               cursor: "pointer",
             }}
             ref={uploadButtonRef}
@@ -147,7 +158,6 @@ const ImageCrop = React.forwardRef((props, ref) => {
           <div
             className="add-profile-thumbnail h-100 d-flex align-items-center justify-content-center"
             style={{
-              // width: `${uploadButtonHeight}px`,
               backgroundImage: `url(${imgSrc})`,
               cursor: "pointer",
             }}

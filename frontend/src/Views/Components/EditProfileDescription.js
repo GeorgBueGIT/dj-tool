@@ -7,6 +7,7 @@ const EditProfileDescription = forwardRef((props, ref) => {
   const [userDetails, setUserDetails] = useState([]);
   const [description, setDescription] = useState();
   const [userName, setUserName] = useState();
+  const [imgSrc, setImgSrc] = useState();
 
   useEffect(() => {
     props.getTextAreaValue(description);
@@ -36,6 +37,7 @@ const EditProfileDescription = forwardRef((props, ref) => {
   useEffect(() => {
     setDescription(userDetails[0]?.Profile_Description);
     setUserName(userDetails[0]?.Username);
+    setImgSrc(userDetails[0]?.Profile_Cover);
   }, [userDetails]);
 
   return (
@@ -43,7 +45,7 @@ const EditProfileDescription = forwardRef((props, ref) => {
       {userDetails && (
         <>
           <div className="profile-image-crop">
-            <ImageCrop ref={ref} ratio={21/9} />
+            <ImageCrop ref={ref} ratio={21/9} imgSrc={imgSrc} />
           </div>
 
           <div className="px-3">

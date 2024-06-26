@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { DeleteFilled, PlusCircleFilled, WarningOutlined } from "@ant-design/icons";
@@ -102,7 +102,6 @@ export default function Song(props) {
 
   const onAddRecommendation = () => {
     props.addRecommendation(props.id);
-    props.removeRecommendation(props.id);
   };
 
   const getCamelotColor = (key, mode) => {
@@ -132,13 +131,13 @@ export default function Song(props) {
             </div>
             <div className="col d-flex align-items-center justify-content-end">
               {props.bpm ? (
-                <b className="darker"> {Math.floor(props.bpm)} bpm </b>
+                <b className="darker px-0 text-nowrap"> {Math.floor(props.bpm)} bpm </b>
               ) : (
                 <b className="darker"> <WarningOutlined /> </b>
               )}
             </div>
             <div className="col d-flex align-items-center justify-content-end">
-              {props.songkey & props.mode ? (
+              {typeof props.mode !== 'undefined' && typeof props.songkey !== 'undefined' ? (
                 <b className="darker" style={{ color: camelotColor }}>
                   {" "}
                   {getCamelotNotation(props.songkey, props.mode)}{" "}
@@ -158,7 +157,7 @@ export default function Song(props) {
                 <DeleteFilled />
               </div>
             )}
-            {props.addRecommendation && props.removeRecommendation && (
+            {props.addRecommendation && (
               <div
                 className="d-flex align-items-center justify-content-end mx-3 p-2 operational-button-song"
                 onClick={() => onAddRecommendation()}

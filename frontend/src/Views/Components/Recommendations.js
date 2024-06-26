@@ -15,17 +15,15 @@ export default function Recommendations({
 }) {
   const [recommendations, setRecommendations] = useState(null);
   const [recommendationDetails, setRecommendationDetails] = useState(null);
-  const [updatingRecommendations, setUpdatingRecommendations] = useState(false);
 
   useEffect(() => {
     const getRecommendations = async () => {
       setRecommendations(
         await getPlaylistRecommendation(addedSongsIdsArray, spotifyAccessToken)
       );
-      setUpdatingRecommendations(false);
     };
     getRecommendations();
-  }, [updatingRecommendations, addedSongsIdsArray, spotifyAccessToken]);
+  }, [addedSongsIdsArray, spotifyAccessToken]);
 
   useEffect(() => {
     const getRecommendationDetails = async () => {
@@ -39,29 +37,9 @@ export default function Recommendations({
     getRecommendationDetails();
   }, [recommendations, spotifyAccessToken]);
 
-  const removeRecommendation = (id) => {
-    setRecommendations((prevArray) =>
-      prevArray.filter((songId) => songId !== id)
-    );
-    setUpdatingRecommendations(true);
-  };
-
   return (
     <div className="recommendations mb-2 mx-2" id="recommendations">
       <h3 className="ps-3 pt-3"> Recommendations </h3>
-      {updatingRecommendations ? (
-        <div
-          data-testid="app-spinner"
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Spin size="large" />
-        </div>
-      ) : (
-        <>
           {recommendations ? (
             <div className="pb-1">
               {recommendationDetails &&
@@ -81,7 +59,6 @@ export default function Recommendations({
                     danceability={recommendationDetails[index]?.danceability}
                     energy={recommendationDetails[index]?.energy}
                     addRecommendation={addRecommendation}
-                    removeRecommendation={removeRecommendation}
                   />
                 ))}
             </div>
@@ -98,8 +75,6 @@ export default function Recommendations({
               <Spin size="large" />
             </div>
           )}
-        </>
-      )}
     </div>
   );
 }

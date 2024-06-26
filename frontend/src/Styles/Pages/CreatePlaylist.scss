@@ -37,7 +37,6 @@
 
     .add-playlist-thumbnail {
         aspect-ratio: 1 / 1;
-        height: 100% !important;
         border-radius: 10px;
         background-color: #3b3b3b;
         background-size: cover;
@@ -54,7 +53,8 @@
     }
 
     .description-tag-container {
-        background-color: #3b3b3b;
+        background-color: rgb(245, 245, 245);
+        color: black;
         width: fit-content;
         border-radius: 100px;
     }
@@ -66,6 +66,7 @@
 
     .selected-tag {
         background-color: orange;
+        color: black;
     }
 
     .selected-tag:hover {

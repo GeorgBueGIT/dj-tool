@@ -91,6 +91,23 @@ export default function CreatePlaylist() {
     }
   };
 
+  const [coverHeight, setCoverHeight] = useState();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      updateCoverHeight();
+    }, 500);
+  }, []);
+
+  const updateCoverHeight = () => {
+    const inputCombo = document.querySelector(".input-combo");
+    if (inputCombo) {
+      const height = inputCombo.clientHeight;
+      console.log(height);
+      setCoverHeight(height);
+    }
+  };
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const ImageCropRef = useRef(null);
@@ -194,7 +211,7 @@ export default function CreatePlaylist() {
             </div>
             <div className="col-8 playlist-frame h-100">
               <div className="playlist-frame-header mb-5 p-2 pt-4 d-flex justify-content-between">
-                <div className="me-3">
+                <div className="me-3 input-combo">
                   <Input
                     placeholder="Playlist title"
                     className="mb-3 title-input"
@@ -209,7 +226,12 @@ export default function CreatePlaylist() {
                     onChange={(e) => setDescription(e.target.value)}
                   />
                 </div>
-                <ImageCrop ref={ImageCropRef} />
+                {coverHeight && (
+                      <ImageCrop
+                        ref={ImageCropRef}
+                        coverHeight={coverHeight}
+                      />
+                )}
               </div>
 
               <div className="description-tags d-flex flex-wrap justify-content-center mb-5">

@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "../../Auth/AuthProvider";
 import { Spin } from "antd";
 import PlaylistTile from "../Components/PlaylistTile";
 import EditProfileDescription from "../Components/EditProfileDescription";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faReply } from "@fortawesome/free-solid-svg-icons";
 
 export default function EditProfile() {
   const [userId, setUserId] = useState(null);
@@ -118,16 +118,23 @@ export default function EditProfile() {
   };
 
   const onSavePlaylist = async () => {
+    
+    let requestBody = {
+      description: textAreaValue,
+      userId: userId,
+    };
+
+    const result = await ImageCropRef.current.uploadImage();
+    if (result) {
+      console.log(result);
+      requestBody.playlistCoverLink = "http://localhost:3001/" + result.filePath;
+    }
+
     try {
-      const response = await fetch(`http://localhost:3001/api/update-profile`, {
+      const response = await fetch(`http://localhost:3001/api/create-profile`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          description: textAreaValue,
-          userId: userId,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(requestBody),
       });
 
       await response.json();
@@ -136,6 +143,8 @@ export default function EditProfile() {
     }
     navigate("/Dashboard");
   };
+
+  const ImageCropRef = useRef(null);
 
   return (
     <div
@@ -148,7 +157,7 @@ export default function EditProfile() {
             <FontAwesomeIcon
               className="px-3"
               fontSize={"32px"}
-              icon={faBackward}
+              icon={faReply}
             />
           </div>
         </div>
@@ -157,6 +166,8 @@ export default function EditProfile() {
             <EditProfileDescription
               userId={userId}
               getTextAreaValue={getTextAreaValue}
+              imgSrc={playlistsData.Profile_Cover}
+              ref={ImageCropRef}
             />
             {renderPlaylistTiles()}
           </div>

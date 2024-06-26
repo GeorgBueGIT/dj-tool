@@ -10,7 +10,7 @@ import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getPlaylistDetails } from "../../utils/Database/GetPlaylistDetails";
 import { getSong } from "../../utils/Spotify/GetSong";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faReply } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faReply, faBarsStaggered } from "@fortawesome/free-solid-svg-icons";
 import { getCurrentDate } from "../../utils/GetCurrentDate";
 import { autoSort } from "../../utils/AutoSort";
 const { TextArea } = Input;
@@ -91,6 +91,22 @@ export default function CreatePlaylist() {
     }
   };
 
+  const [coverHeight, setCoverHeight] = useState();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      updateCoverHeight();
+    }, 500);
+  }, []);
+
+  const updateCoverHeight = () => {
+    const inputCombo = document.querySelector(".input-combo");
+    if (inputCombo) {
+      const height = inputCombo.clientHeight;
+      setCoverHeight(height);
+    }
+  };
+
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [imageUrl, setImageUrl] = useState("");
@@ -134,9 +150,9 @@ export default function CreatePlaylist() {
 
     const requestBody = {
       title: title,
-      tags: selectedTags.map((tag) => tag).join(", "), // Assuming selectedTags is an array of objects with an 'id' property
+      tags: selectedTags.map((tag) => tag).join(", "),
       playlistId: ID,
-      date: getCurrentDate()
+      date: getCurrentDate(),
     };
 
     if (description) {
@@ -197,7 +213,9 @@ export default function CreatePlaylist() {
 
   const removeSong = (id) => {
     console.log("Removing ID:" + id);
-    setAddedSongsIdsArray((prevArray) => prevArray.filter(songId => songId !== id));
+    setAddedSongsIdsArray((prevArray) =>
+      prevArray.filter((songId) => songId !== id)
+    );
   };
 
   const addRecommendation = (id) => {
@@ -206,8 +224,10 @@ export default function CreatePlaylist() {
   };
 
   const handleAutoSort = async () => {
-    setAddedSongsIdsArray(await autoSort(addedSongsIdsArray, spotifyAccessToken));
-  }
+    setAddedSongsIdsArray(
+      await autoSort(addedSongsIdsArray, spotifyAccessToken)
+    );
+  };
 
   return (
     <div
@@ -233,8 +253,8 @@ export default function CreatePlaylist() {
                   </div>
                 </div>
                 <div className="col-8 playlist-frame h-100">
-                  <div className="playlist-frame-header mb-5 p-2 pt-4 d-flex justify-content-between">
-                    <div className="me-3">
+                  <div className="playlist-frame-header mw-100 mb-3 p-2 pt-4 d-flex justify-content-between">
+                    <div className="me-3 input-combo">
                       <Input
                         placeholder="Playlist title"
                         className="mb-3 title-input"
@@ -249,33 +269,27 @@ export default function CreatePlaylist() {
                         onChange={(e) => setDescription(e.target.value)}
                       />
                     </div>
-                    {!imageUrl ? (
-                      <ImageCrop ref={ImageCropRef} />
-                    ) : (
-                      <div
-                        className="playlist-cover d-flex align-items-center justify-content-center"
-                        style={{
-                          backgroundImage: `url(${imageUrl})`,
-                        }}
-                      ></div>
+                    {coverHeight && (
+                      <ImageCrop
+                        ref={ImageCropRef}
+                        imgSrc={imageUrl}
+                        coverHeight={coverHeight}
+                      />
                     )}
                   </div>
 
                   <div className="description-tags d-flex flex-wrap justify-content-center mb-5">
-                    <h4 className="w-100 fw-bold text-center">
+                    <h4 className="w-100 fw-bold text-center f-blackops">
                       {" "}
                       Choose 3 Tags{" "}
                     </h4>
                     {renderDescriptionTags()}
                   </div>
-                  <div className="auto-sort" onClick={handleAutoSort}>
-                    <b> Click for autosort </b>
-                  </div>
 
-                  <div className="search mb-5">
+                  <div className="search mb-5 d-flex flex-row w-100">
                     <Input
                       placeholder="Add Track by Name ..."
-                      className="search-input"
+                      className="search-input w-fill me-3"
                       value={searchInput}
                       onKeyPress={(event) => {
                         if (event.key === "Enter") {
@@ -284,6 +298,13 @@ export default function CreatePlaylist() {
                       }}
                       onChange={(event) => setSearchInput(event.target.value)}
                     />
+                  <div className="auto-sort px-3 py-2 d-flex flex-row align-items-center" onClick={handleAutoSort}><FontAwesomeIcon
+                      className="pe-2"
+                      fontSize={"32px"}
+                      icon={faBarsStaggered}
+                    />
+                    <b className="text-nowrap">                     Autosort </b>
+                  </div>
                   </div>
 
                   <div className="songs">
@@ -298,7 +319,7 @@ export default function CreatePlaylist() {
                     )}
                   </div>
 
-                  {/* <div className="recommendations">
+                  <div className="recommendations">
                     {spotifyAccessToken && addedSongsIdsArray && (
                       <Recommendations
                         addedSongsIdsArray={addedSongsIdsArray}
@@ -306,7 +327,7 @@ export default function CreatePlaylist() {
                         addRecommendation={addRecommendation}
                       />
                     )}
-                  </div> */}
+                  </div>
                 </div>
                 <div className="col-2 h-100">
                   <div onClick={onSavePlaylist} className="position-fixed save">

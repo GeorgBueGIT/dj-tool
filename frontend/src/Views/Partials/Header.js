@@ -32,12 +32,37 @@ function Header({ activeLink, navToSlide }) {
     auth.logOut();
   };
 
+  const onDeleteAccount = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3001/api/delete-profile?userId=${auth.user.id}`,
+        {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      await response.json();
+      auth.logOut();
+    } catch (error) {
+      console.error("Error Deleting User:", error);
+    }
+  }
+
   const items = [
     {
       key: "1",
       label: (
         <a onClick={onSignOut}>
           Sign Out
+        </a>
+      ),
+    },
+    {
+      key: "2",
+      label: (
+        <a onClick={onDeleteAccount}>
+          Delete Account
         </a>
       ),
     },
