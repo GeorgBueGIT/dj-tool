@@ -31,7 +31,7 @@ export default function Start() {
 
 
   const onFinishRegister = async (values) => {
-    // console.log("Received values of form: ", values);
+
     const { username, password } = values;
     const response = await fetch("http://localhost:3001/api/register", {
       method: "POST",
@@ -40,7 +40,6 @@ export default function Start() {
     });
     
     const res = await response.json();
-    console.log(res);
 
     if (response.status === 200) {
       setIsLogin(true);

@@ -8,6 +8,7 @@ import ViewPlaylist from "./Views/Pages/ViewPlaylist";
 import ViewProfile from "./Views/Pages/ViewProfile";
 import EditPlaylist from "./Views/Pages/EditPlaylist";
 import EditProfile from "./Views/Pages/EditProfile";
+import CreateProfile from "./Views/Pages/CreateProfile";
 import AuthProvider from "./Auth/AuthProvider";
 import PrivateRoute from "./Auth/PrivateRoutes";
 import { Spin } from "antd";
@@ -59,6 +60,7 @@ function App() {
                 <Route exact path="/View-Profile" element={<ViewProfile />} />
                 <Route exact path="/Edit-Playlist" element={<EditPlaylist />} />
                 <Route exact path="/Edit-Profile" element={<EditProfile />} />
+                <Route exact path="/Create-Profile" element={<CreateProfile />} />
               </Route>
             </Routes>
           </AuthProvider>

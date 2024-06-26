@@ -55,7 +55,8 @@ export default function ImportSpotify() {
       imageSrc: selectedPlaylist.images[0].url,
       songs: playlistTracks,
       userId: userId,
-      date: getCurrentDate()
+      date: getCurrentDate(),
+      visible: 1
     };
 
     const response = await fetch(

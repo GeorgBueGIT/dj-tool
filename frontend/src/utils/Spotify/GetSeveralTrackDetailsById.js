@@ -35,6 +35,5 @@ export const getSeveralTrackDetailsById = async (
       return null;
     }
   }
-  console.log(trackListDetails);
   return trackListDetails;
 };

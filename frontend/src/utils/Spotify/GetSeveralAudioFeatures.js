@@ -29,6 +29,5 @@ export const getSeveralAudioFeatures = async (trackIdsArray, accessToken) => {
       return null;
     }
   }
-  console.log("Fütur: " + trackListAudioFeatures);
   return trackListAudioFeatures;
 };

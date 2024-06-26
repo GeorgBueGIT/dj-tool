@@ -10,8 +10,9 @@ import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getPlaylistDetails } from "../../utils/Database/GetPlaylistDetails";
 import { getSong } from "../../utils/Spotify/GetSong";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faReply } from "@fortawesome/free-solid-svg-icons";
 import { getCurrentDate } from "../../utils/GetCurrentDate";
+import { autoSort } from "../../utils/AutoSort";
 const { TextArea } = Input;
 
 export default function CreatePlaylist() {
@@ -182,7 +183,6 @@ export default function CreatePlaylist() {
     const fetchAccessToken = async () => {
       const accessToken = await getSpotifyAccessToken();
       setSpotifyAccessToken(accessToken);
-      console.log("Fetched AccessToken: " + accessToken);
     };
     fetchAccessToken();
   }, []);
@@ -205,6 +205,10 @@ export default function CreatePlaylist() {
     setAddedSongsIdsArray((prevArray) => [...prevArray, id]);
   };
 
+  const handleAutoSort = async () => {
+    setAddedSongsIdsArray(await autoSort(addedSongsIdsArray, spotifyAccessToken));
+  }
+
   return (
     <div
       className="create-playlist d-flex justify-content-center overflow-hidden"
@@ -224,7 +228,7 @@ export default function CreatePlaylist() {
                     <FontAwesomeIcon
                       className="px-3"
                       fontSize={"32px"}
-                      icon={faBackward}
+                      icon={faReply}
                     />
                   </div>
                 </div>
@@ -264,6 +268,9 @@ export default function CreatePlaylist() {
                     </h4>
                     {renderDescriptionTags()}
                   </div>
+                  <div className="auto-sort" onClick={handleAutoSort}>
+                    <b> Click for autosort </b>
+                  </div>
 
                   <div className="search mb-5">
                     <Input
@@ -291,7 +298,7 @@ export default function CreatePlaylist() {
                     )}
                   </div>
 
-                  <div className="recommendations">
+                  {/* <div className="recommendations">
                     {spotifyAccessToken && addedSongsIdsArray && (
                       <Recommendations
                         addedSongsIdsArray={addedSongsIdsArray}
@@ -299,7 +306,7 @@ export default function CreatePlaylist() {
                         addRecommendation={addRecommendation}
                       />
                     )}
-                  </div>
+                  </div> */}
                 </div>
                 <div className="col-2 h-100">
                   <div onClick={onSavePlaylist} className="position-fixed save">

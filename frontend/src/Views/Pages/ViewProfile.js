@@ -4,7 +4,7 @@ import { Spin } from "antd";
 import PlaylistTile from "../Components/PlaylistTile";
 import ProfileDescription from "../Components/ProfileDescription";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faReply } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export default function ViewProfile() {
@@ -36,7 +36,7 @@ export default function ViewProfile() {
     const fetchPlaylists = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/getUserPlaylists?userId=${ID}`,
+          `http://localhost:3001/api/getUserPlaylists?userId=${ID}&hidePrivate=${true}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -71,6 +71,8 @@ export default function ViewProfile() {
         key={index}
         title={playlist.Title}
         imageSrc={playlist.Cover}
+        description={playlist.Description}
+        tags={playlist.Tags}
         username={userName}
         showUsername={false}
         onClick={() => viewPlaylist(playlist.ID)}
@@ -94,7 +96,7 @@ export default function ViewProfile() {
               <FontAwesomeIcon
                 className="px-3"
                 fontSize={"32px"}
-                icon={faBackward}
+                icon={faReply}
               />
             </div>
           </div>

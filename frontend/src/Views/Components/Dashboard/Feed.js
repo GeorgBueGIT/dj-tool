@@ -2,13 +2,22 @@ import React, { useState, useEffect } from "react";
 import PlaylistTile from "../PlaylistTile";
 import { useNavigate } from "react-router-dom";
 import { getUsernameById } from "../../../utils/Database/GetUsernameById";
+import { MehOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 
 function Feed({ headerHeight, userId, userName }) {
   const [playlistsData, setPlaylistsData] = useState([]);
-
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const fetchPlaylists = async () => {
@@ -22,7 +31,6 @@ function Feed({ headerHeight, userId, userName }) {
         );
 
         const data = await response.json();
-        console.log(data);
         setPlaylistsData(data);
       } catch (error) {
         console.error("Error fetching playlists:", error);
@@ -40,15 +48,21 @@ function Feed({ headerHeight, userId, userName }) {
   };
 
   const renderPlaylistTiles = () => {
-    if (playlistsData.length === 0) {
+    if (loading) {
       return (
-        <div className="my-5 w-100 d-flex align-items-center justify-content-center">
-          <b className="no-entries"> No entries found! </b>
+        <div className="h-100 w-100 d-flex align-items-center justify-content-center">
+          <Spin />
         </div>
       );
     }
 
-    
+    if (playlistsData.length === 0) {
+      return (
+        <div className="h-100 w-100 d-flex align-items-center justify-content-center">
+          <b className="no-entries"> <MehOutlined className="me-3" />  It seems like you dont follow anyone yet!  </b>
+        </div>
+      );
+    }
 
     return playlistsData.map((playlist, index) => (
       <PlaylistTile
@@ -69,16 +83,16 @@ function Feed({ headerHeight, userId, userName }) {
       className="col-10 h-100 offset-1 trending-playlists-page"
       id="trending-playlists"
     >
-      <div className="row h-100 d-flex align-items-center">
+      <div className="row vh100 d-flex align-items-center">
         <div className="col-12 col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
           <h2 className="mb-3"> Follower Feed </h2>
           <h3> See what they made recently </h3>
         </div>
         <div
-          className="col-12 col-lg-6 h-100 d-flex align-items-center"
+          className="col-12 col-lg-6 h-100 pb-5 d-flex align-items-center"
           style={{ paddingTop: headerHeight + "px" }}
         >
-          <div className="content-frame mh-100 w-100">
+          <div className="content-frame h-100 w-100">
             {renderPlaylistTiles()}
           </div>
         </div>

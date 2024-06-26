@@ -83,9 +83,9 @@
 
     .profile-description {
         img {
-            height: 25vh;
+            width: 100%;
+            aspect-ratio: 21 / 9;
             object-fit: cover;
-            border-radius: 10px;
         }
 
         h3 {
@@ -94,7 +94,7 @@
 
         b {
             font-size: 24px;
-            color: #474747;
+            color: #9b9b9b;
         }
     }
 

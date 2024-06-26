@@ -1,15 +1,15 @@
 import database from "../../config/database.js";
 
-export const updateProfile = (req, res) => {
-    const { description, userId } = req.body;
+export const createProfile = (req, res) => {
+    const { description, userId, playlistCoverLink } = req.body;
 
     const query = `
     UPDATE users
-    SET Profile_Description = ?
+    SET Profile_Description = ?, Initial_Login = ?, Profile_Cover = ?
     WHERE ID = ?
   `;
 
-  database.query(query, [description, userId], (err) => {
+  database.query(query, [description, 0, playlistCoverLink, userId], (err) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }

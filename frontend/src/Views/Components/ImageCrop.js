@@ -4,7 +4,7 @@ import { getCroppedImg } from "../../utils/ImageCropHelper";
 import { CameraFilled } from "@ant-design/icons";
 import "react-easy-crop/react-easy-crop.css"; // Import the CSS for Cropper
 
-const ASPECT_RATIO = 1;
+let ASPECT_RATIO = 1;
 
 const ImageCrop = React.forwardRef((props, ref) => {
   const [crop, setCrop] = useState({ x: 0, y: 0 });
@@ -15,11 +15,14 @@ const ImageCrop = React.forwardRef((props, ref) => {
   const [showCropper, setShowCropper] = useState(true);
   const uploadButtonRef = useRef(null);
 
+  ASPECT_RATIO = props.ratio || 1;
+
   const onCropComplete = (croppedArea, croppedAreaPixels) => {
     setCroppedAreaPixels(croppedAreaPixels);
   };
 
   const showCroppedImage = async () => {
+    console.log("happend");
     try {
       const croppedImage = await getCroppedImg(imgSrc, croppedAreaPixels);
       const croppedImageBlob = await fetch(croppedImage).then((res) =>
@@ -80,56 +83,100 @@ const ImageCrop = React.forwardRef((props, ref) => {
   };
 
   useImperativeHandle(ref, () => ({
-    uploadImage: uploadImage
+    uploadImage: uploadImage,
   }));
 
+  if (ASPECT_RATIO === 1) {
+    return (
+      <div id="image-crop-playlist" className="pe-2">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onFileChange}
+          id="fileInput"
+          style={{ display: "none" }}
+        />
+        <label htmlFor="fileInput" className="h-100">
+          <div
+            className="add-playlist-thumbnail d-flex align-items-center justify-content-center"
+            style={{
+              // width: `${uploadButtonHeight}px`,
+              backgroundImage: `url(${imgSrc})`,
+              cursor: "pointer",
+            }}
+            ref={uploadButtonRef}
+          >
+            {!imgSrc && (
+              <CameraFilled style={{ fontSize: "64px", color: "black" }} />
+            )}
+          </div>
+        </label>
 
-  return (
-    <div id="image-crop" className="pe-2">
-      <input
-        type="file"
-        accept="image/*"
-        onChange={onFileChange}
-        id="fileInput"
-        style={{ display: "none" }}
-      />
-      <label htmlFor="fileInput" className="h-100">
-        <div
-          className="add-playlist-thumbnail d-flex align-items-center justify-content-center"
-          style={{
-            // width: `${uploadButtonHeight}px`,
-            backgroundImage: `url(${imgSrc})`,
-            cursor: "pointer",
-          }}
-          ref={uploadButtonRef}
-        >
-          {!imgSrc && (
-            <CameraFilled style={{ fontSize: "64px", color: "black" }} />
+        <div className="container-relative w-100 h-100">
+          {imgSrc && showCropper && (
+            <div className="backgroundOverlay" onClick={handleClick}>
+              <Cropper
+                image={imgSrc}
+                crop={crop}
+                zoom={zoom}
+                aspect={ASPECT_RATIO}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+              />
+              <button className="position-absolute" onClick={showCroppedImage}>
+                Show Result
+              </button>
+            </div>
           )}
         </div>
-      </label>
-
-      <div className="container-relative w-100 h-100">
-        {imgSrc && showCropper && (
-          <div className="backgroundOverlay" onClick={handleClick}>
-            <Cropper
-              image={imgSrc}
-              crop={crop}
-              zoom={zoom}
-              aspect={ASPECT_RATIO}
-              onCropChange={setCrop}
-              onCropComplete={onCropComplete}
-              onZoomChange={setZoom}
-            />
-            <button className="position-absolute" onClick={showCroppedImage}>
-              Show Result
-            </button>
-          </div>
-        )}
+        <button onClick={uploadImage}> Upload Cropped Image to Server! </button>
       </div>
-      <button onClick={uploadImage}> Upload Cropped Image to Server! </button>
-    </div>
-  );
-})
+    );
+  } else {
+    return (
+      <div id="image-crop-profile">
+        <input
+          type="file"
+          accept="image/*"
+          onChange={onFileChange}
+          id="fileInput"
+          style={{ display: "none" }}
+        />
+        <label htmlFor="fileInput" className="h-100 image-label">
+          <div
+            className="add-profile-thumbnail h-100 d-flex align-items-center justify-content-center"
+            style={{
+              // width: `${uploadButtonHeight}px`,
+              backgroundImage: `url(${imgSrc})`,
+              cursor: "pointer",
+            }}
+            ref={uploadButtonRef}
+          >
+            {!imgSrc && (
+              <CameraFilled style={{ fontSize: "64px", color: "black" }} />
+            )}
+          </div>
+        </label>
+
+        <div className="container-relative w-100 h-100">
+          {imgSrc && showCropper && (
+            <div className="backgroundOverlay" onClick={handleClick}>
+              <Cropper
+                image={imgSrc}
+                crop={crop}
+                zoom={zoom}
+                aspect={ASPECT_RATIO}
+                onCropChange={setCrop}
+                onCropComplete={onCropComplete}
+                onZoomChange={setZoom}
+              />
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+});
 
 export default ImageCrop;

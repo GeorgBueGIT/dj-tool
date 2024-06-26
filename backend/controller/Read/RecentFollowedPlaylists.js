@@ -23,6 +23,7 @@ export const recentFollowedPlaylists = async (req, res) => {
     const playlistQuery = `
       SELECT * FROM playlists
       WHERE Author_ID IN (?)
+      AND Visible = true
       ORDER BY Last_Edited DESC;`
     ;
 

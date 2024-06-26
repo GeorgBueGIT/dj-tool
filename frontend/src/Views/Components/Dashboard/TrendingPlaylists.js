@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDice, faTag } from "@fortawesome/free-solid-svg-icons";
 import { getGenreById } from "../../../utils/GetGenreById";
+import { MehOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
 
 function TrendingPlaylists({ headerHeight }) {
@@ -45,8 +46,8 @@ function TrendingPlaylists({ headerHeight }) {
   const renderPlaylistTiles = () => {
     if (playlistsData.length === 0) {
       return (
-        <div className="my-5 w-100 d-flex align-items-center justify-content-center">
-          <b className="no-entries"> No entries found! </b>
+        <div className="h-100 w-100 d-flex align-items-center justify-content-center">
+          <b className="no-entries"> <MehOutlined className="me-3" /> No playlists found! </b>
         </div>
       );
     }
@@ -120,13 +121,13 @@ function TrendingPlaylists({ headerHeight }) {
       className="col-10 h-100 offset-1 trending-playlists-page"
       id="trending-playlists"
     >
-      <div className="row h-100 d-flex align-items-center">
+      <div className="row vh100 d-flex align-items-center">
         <div className="col-12 col-lg-6 text-center text-lg-start mb-4 mb-lg-0">
           <h2 className="mb-3"> Inspire yourself - Random Playlists </h2>
           <h3> See what other Users created </h3>
         </div>
         <div
-          className="col-12 col-lg-6 h-100"
+          className="col-12 col-lg-6 h-100 pb-5"
           style={{ paddingTop: headerHeight + "px" }}
         >
           <div className="content-frame h-100 w-100">

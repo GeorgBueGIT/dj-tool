@@ -1,7 +1,7 @@
 import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { DeleteFilled, PlusCircleFilled } from "@ant-design/icons";
+import { DeleteFilled, PlusCircleFilled, WarningOutlined } from "@ant-design/icons";
 
 const camelotMajor = {
   0: "8B", // C major
@@ -31,6 +31,33 @@ const camelotMinor = {
   9: "8A", // A minor
   10: "3A", // B♭ minor
   11: "10A", // B minor
+};
+
+const camelotColors = {
+  "1B": "hsl(0, 100%, 50%)", // Red
+  "1A": "hsl(0, 100%, 60%)", // Lighter Red for minor
+  "2B": "hsl(30, 100%, 50%)", // Orange
+  "2A": "hsl(30, 100%, 60%)", // Lighter Orange for minor
+  "3B": "hsl(60, 100%, 50%)", // Yellow
+  "3A": "hsl(60, 100%, 60%)", // Lighter Yellow for minor
+  "4B": "hsl(90, 100%, 50%)", // Lime
+  "4A": "hsl(90, 100%, 60%)", // Lighter Lime for minor
+  "5B": "hsl(120, 100%, 50%)", // Green
+  "5A": "hsl(120, 100%, 60%)", // Lighter Green for minor
+  "6B": "hsl(150, 100%, 50%)", // Spring Green
+  "6A": "hsl(150, 100%, 60%)", // Lighter Spring Green for minor
+  "7B": "hsl(180, 100%, 50%)", // Cyan
+  "7A": "hsl(180, 100%, 60%)", // Lighter Cyan for minor
+  "8B": "hsl(210, 100%, 50%)", // Sky Blue
+  "8A": "hsl(210, 100%, 60%)", // Lighter Sky Blue for minor
+  "9B": "hsl(240, 100%, 50%)", // Blue
+  "9A": "hsl(240, 100%, 60%)", // Lighter Blue for minor
+  "10B": "hsl(270, 100%, 50%)", // Violet
+  "10A": "hsl(270, 100%, 60%)", // Lighter Violet for minor
+  "11B": "hsl(300, 100%, 50%)", // Magenta
+  "11A": "hsl(300, 100%, 60%)", // Lighter Magenta for minor
+  "12B": "hsl(330, 100%, 50%)", // Pink
+  "12A": "hsl(330, 100%, 60%)", // Lighter Pink for minor
 };
 
 export default function Song(props) {
@@ -76,7 +103,14 @@ export default function Song(props) {
   const onAddRecommendation = () => {
     props.addRecommendation(props.id);
     props.removeRecommendation(props.id);
-  }
+  };
+
+  const getCamelotColor = (key, mode) => {
+    const notation = getCamelotNotation(key, mode);
+    return camelotColors[notation] || "#000000"; // Default to black if not found
+  };
+
+  const camelotColor = getCamelotColor(props.songkey, props.mode);
 
   return (
     <div
@@ -97,13 +131,21 @@ export default function Song(props) {
               {renderArtists()}
             </div>
             <div className="col d-flex align-items-center justify-content-end">
-              <b className="darker"> {Math.floor(props.bpm)} bpm </b>
+              {props.bpm ? (
+                <b className="darker"> {Math.floor(props.bpm)} bpm </b>
+              ) : (
+                <b className="darker"> <WarningOutlined /> </b>
+              )}
             </div>
             <div className="col d-flex align-items-center justify-content-end">
-              <b className="darker">
-                {" "}
-                {getCamelotNotation(props.songkey, props.mode)}{" "}
-              </b>
+              {props.songkey & props.mode ? (
+                <b className="darker" style={{ color: camelotColor }}>
+                  {" "}
+                  {getCamelotNotation(props.songkey, props.mode)}{" "}
+                </b>
+              ) : (
+                <b className="darker"> <WarningOutlined /> </b>
+              )}
             </div>
             <div className="col d-flex align-items-center justify-content-end pe-3">
               <b className="darker"> {formatDuration(props.duration)} </b>
@@ -116,7 +158,7 @@ export default function Song(props) {
                 <DeleteFilled />
               </div>
             )}
-            {props.addRecommendation  && props.removeRecommendation && (
+            {props.addRecommendation && props.removeRecommendation && (
               <div
                 className="d-flex align-items-center justify-content-end mx-3 p-2 operational-button-song"
                 onClick={() => onAddRecommendation()}

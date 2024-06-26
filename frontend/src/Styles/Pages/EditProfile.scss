@@ -19,11 +19,11 @@
 
     .profile-description {
         img {
-            height: 25vh;
+            width: 100%;
+            aspect-ratio: 21 / 9;
             object-fit: cover;
-            border-radius: 10px;
         }
-
+        
         h3 {
             width: fit-content;
         }

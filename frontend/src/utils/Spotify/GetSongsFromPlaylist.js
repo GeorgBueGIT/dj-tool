@@ -11,7 +11,6 @@ export const getSongsFromPlaylist = async (playlistId = '', accessToken = 'BQC7p
     try {
       const response = await fetch("https://api.spotify.com/v1/playlists/" + playlistId, parameters);
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (error) {
       console.error("Error fetching Spotify access token:", error);

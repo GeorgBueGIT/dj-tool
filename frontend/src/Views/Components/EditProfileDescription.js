@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef, forwardRef } from "react";
 import { Input } from "antd";
+import ImageCrop from "../Components/ImageCrop";
 const { TextArea } = Input;
 
-function EditProfileDescription({ userId }) {
+const EditProfileDescription = forwardRef((props, ref) => {
   const [userDetails, setUserDetails] = useState([]);
   const [description, setDescription] = useState();
+  const [userName, setUserName] = useState();
+
+  useEffect(() => {
+    props.getTextAreaValue(description);
+  }, [description]);
 
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const response = await fetch(
-          `http://localhost:3001/api/get-user-details?userId=${userId}`,
+          `http://localhost:3001/api/get-user-details?userId=${props.userId}`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -25,37 +31,32 @@ function EditProfileDescription({ userId }) {
     };
 
     fetchProfile();
-  }, [userId]);
+  }, [props.userId]);
 
-    useEffect(() => {
-        setDescription(userDetails[0]?.Profile_Description);
-    }, [userDetails]);
+  useEffect(() => {
+    setDescription(userDetails[0]?.Profile_Description);
+    setUserName(userDetails[0]?.Username);
+  }, [userDetails]);
 
   return (
     <div className="profile-description pt-0 pb-2" id="profile-description">
       {userDetails && (
         <>
-          <img
-            className="profile-banner"
-            alt="profile banner"
-            src={
-              userDetails[0]?.Profile_Cover
-                ? userDetails[0].Profile_Cover
-                : "https://mvz-bietigheim.de/wp-content/uploads/2017/05/placeholder-image10.jpg"
-            }
-            width={"100%"}
-          />
+          <div className="profile-image-crop">
+            <ImageCrop ref={ref} ratio={21/9} />
+          </div>
+
           <div className="px-3">
             <div className="d-flex align-items-center justify-content-between pb-3">
               <Input
-                placeholder="Playlist title"
+                placeholder="Profile Name"
                 className="my-3 title-input"
-                value={userDetails[0]?.Username}
+                value={userName}
                 disabled
               />
             </div>
             <TextArea
-              placeholder="Playlist Description"
+              placeholder="Profile Description"
               className="description-input"
               autoSize={{ minRows: 2, maxRows: 6 }}
               value={description}
@@ -66,6 +67,6 @@ function EditProfileDescription({ userId }) {
       )}
     </div>
   );
-}
+});
 
 export default EditProfileDescription;

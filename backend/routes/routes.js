@@ -14,6 +14,11 @@ import { followUser } from '../controller/Create/FollowUser.js';
 import { unFollowUser } from '../controller/Delete/UnFollowUser.js';
 import { isFollower } from '../controller/Read/IsFollower.js';
 import { recentFollowedPlaylists } from '../controller/Read/RecentFollowedPlaylists.js';
+import { isPlaylistPublic } from '../controller/Read/IsPlaylistPublic.js';
+import { updatePlaylistVisibility } from '../controller/Update/UpdatePlaylistVisibility.js';
+import { deletePlaylist } from '../controller/Delete/DeletePlaylist.js';
+import { createProfile } from '../controller/Create/CreateProfile.js';
+import { updateProfile } from '../controller/Update/UpdateProfile.js';
 
 const router = express.Router();
 
@@ -32,4 +37,9 @@ router.post('/follow-user', followUser);
 router.post('/unfollow-user', unFollowUser);
 router.post('/is-follower', isFollower);
 router.get('/get-recent-followed-playlists', recentFollowedPlaylists);
+router.get('/is-playlist-public', isPlaylistPublic);
+router.post('/update-playlist-visibility', updatePlaylistVisibility);
+router.get('/delete-playlist', deletePlaylist);
+router.post('/create-profile', createProfile);
+router.post('/update-profile', updateProfile);
 export default router;

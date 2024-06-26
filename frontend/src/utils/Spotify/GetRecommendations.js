@@ -43,7 +43,6 @@ export const getPlaylistRecommendation = async (
         return null;
       }
     }
-    console.log("Recomendations: " + recommendations);
     return recommendations;
   };
   

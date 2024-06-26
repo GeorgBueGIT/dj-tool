@@ -30,9 +30,7 @@ import Song from "./SongTile";
 
 const SongList = forwardRef(
   ({ addedSongsIdsArray, spotifyAccessToken, allowSort = true, allowRemove = true, removeSong}, ref) => {
-    const [items, setItems] = useState(null);
-
-    const [itemsFeatures, setItemsFeatures] = useState([]);
+    const [songObjArray, setSongObjArray] = useState([]);
 
     const sensors = useSensors(
       useSensor(PointerSensor, {
@@ -46,55 +44,31 @@ const SongList = forwardRef(
     );
 
     useEffect(() => {
-      const getTrackDetails = async () => {
-        setItems(
-          await getSeveralTrackDetailsById(
-            addedSongsIdsArray,
-            spotifyAccessToken
-          )
+      const getTracksWithDetails = async () => {
+        const trackDetails = await getSeveralTrackDetailsById(
+          addedSongsIdsArray,
+          spotifyAccessToken
         );
-        setItemsFeatures(
-          await getSeveralAudioFeatures(addedSongsIdsArray, spotifyAccessToken)
+        const audioFeatures = await getSeveralAudioFeatures(
+          addedSongsIdsArray,
+          spotifyAccessToken
         );
+        // Combine the arrays by matching the song IDs
+        setSongObjArray(trackDetails.map((track) => {
+          const details = audioFeatures?.find((feature) => feature.id === track.id);
+          return { ...track, ...details };
+        }));
+    
       };
-      getTrackDetails();
+      getTracksWithDetails();
     }, [addedSongsIdsArray, spotifyAccessToken]);
 
-    useEffect(() => {
-      console.log("Items: " + JSON.stringify(items));
-      console.log("Features: " + itemsFeatures);
-      if (
-        items &&
-        itemsFeatures &&
-        items.tracks &&
-        itemsFeatures.audio_features
-      ) {
-        // Synchronize items and itemsFeatures by matching IDs
-        const updatedItems = items.map((track) => {
-          const audioFeature = itemsFeatures.find(
-            (feat) => feat && feat.id === track.id
-          );
-          return { ...track, ...(audioFeature || {}) };
-        });
-
-        setItems(updatedItems);
-      }
-    }, [items, itemsFeatures]);
-
-    useEffect(() => {
-      console.log(itemsFeatures);
-    }, [itemsFeatures]);
-
-    useEffect(() => {
-      console.log(items);
-    }, [items]);
-
     const getCurrentSongIdsSorted = () => {
-      if (!items) {
+      if (!songObjArray) {
         console.error("Empty Set of Songs!");
         return;
       }
-      return items.map((item) => item.id).join(", ");
+      return songObjArray.map((item) => item.id).join(", ");
     };
 
     useImperativeHandle(ref, () => ({
@@ -109,7 +83,7 @@ const SongList = forwardRef(
 
     return (
       <div className="song-list mb-3">
-        {items ? (
+        {songObjArray ? (
           <DndContext
             sensors={sensors}
             collisionDetection={closestCenter}
@@ -117,11 +91,11 @@ const SongList = forwardRef(
             modifiers={modifiers}
           >
             <SortableContext
-              items={items}
+              items={songObjArray}
               strategy={verticalListSortingStrategy}
             >
-              {itemsFeatures &&
-                items.map((song, index) => (
+              {songObjArray &&
+                songObjArray.map((song, index) => (
                   <Song
                     key={song.id}
                     songIndex={index}
@@ -130,12 +104,12 @@ const SongList = forwardRef(
                     source={song.external_urls.spotify}
                     title={song.name}
                     artists={song.artists}
-                    bpm={itemsFeatures[index]?.tempo} // Optional chaining to avoid errors if itemsFeatures is not fully populated
-                    songkey={itemsFeatures[index]?.key}
-                    mode={itemsFeatures[index]?.mode}
-                    duration={itemsFeatures[index]?.duration_ms}
-                    danceability={itemsFeatures[index]?.danceability}
-                    energy={itemsFeatures[index]?.energy}
+                    bpm={song.tempo}
+                    songkey={song.key}
+                    mode={song.mode}
+                    duration={song.duration_ms}
+                    danceability={song.danceability}
+                    energy={song.energy}
                     allowRemove={allowRemove}
                     removeSong={removeSong}
                   />
@@ -152,18 +126,12 @@ const SongList = forwardRef(
     function handleDragEnd(event) {
       const { active, over } = event;
       if (active.id !== over.id) {
-        const oldIndex = items.findIndex((item) => item.id === active.id);
-        const newIndex = items.findIndex((item) => item.id === over.id);
+        const oldIndex = songObjArray.findIndex((item) => item.id === active.id);
+        const newIndex = songObjArray.findIndex((item) => item.id === over.id);
 
-        const updatedItems = arrayMove(items, oldIndex, newIndex);
-        const updatedItemsFeatures = arrayMove(
-          itemsFeatures,
-          oldIndex,
-          newIndex
-        );
+        const updatedItems = arrayMove(songObjArray, oldIndex, newIndex);
 
-        setItems(updatedItems);
-        setItemsFeatures(updatedItemsFeatures);
+        setSongObjArray(updatedItems);
       }
     }
     function arrayMove(array, fromIndex, toIndex) {

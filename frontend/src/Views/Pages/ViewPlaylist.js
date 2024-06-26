@@ -2,16 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { Input } from "antd";
 import SongList from "../Components/SongList";
 import { Spin } from "antd";
-import Alert from "../Components/Alert";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
-import ImageCrop from "../Components/ImageCrop";
 import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getPlaylistDetails } from "../../utils/Database/GetPlaylistDetails";
-import { getSong } from "../../utils/Spotify/GetSong";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faReply } from "@fortawesome/free-solid-svg-icons";
 const { TextArea } = Input;
-
 
 export default function ViewPlaylist() {
   const location = useLocation();
@@ -41,13 +37,29 @@ export default function ViewPlaylist() {
     navigate("/Dashboard");
   };
 
+  const [coverHeight, setCoverHeight] = useState();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      updateCoverHeight();
+    }, 500);
+  }, []);
+
+  const updateCoverHeight = () => {
+    const inputCombo = document.querySelector(".input-combo");
+    if (inputCombo) {
+      const height = inputCombo.clientHeight;
+      console.log(height);
+      setCoverHeight(height);
+    }
+  }
 
   return (
     <div
       className="create-playlist d-flex justify-content-center overflow-hidden"
       id="create-playlist-page"
     >
-      {playlistDetailsObj && spotifyAccessToken &&(
+      {playlistDetailsObj && spotifyAccessToken && (
         <div
           className="vh100 w-100 pageüä-color position-relative justify-content-center"
           id="view-playlist"
@@ -55,21 +67,21 @@ export default function ViewPlaylist() {
           <div className="px-5">
             <div className="row vh100 d-flex align-items-center py-6">
               <div className="col-2 h-100">
-              <div onClick={goBack} className="position-fixed back">
-                    <FontAwesomeIcon
-                      className="px-3"
-                      fontSize={"32px"}
-                      icon={faBackward}
-                    />
-                  </div>
+                <div onClick={goBack} className="position-fixed back">
+                  <FontAwesomeIcon
+                    className="px-3"
+                    fontSize={"32px"}
+                    icon={faReply}
+                  />
+                </div>
               </div>
               <div className="col-8 playlist-frame mh-100">
-                <div className="playlist-frame-header mb-5 p-2 pt-4 d-flex justify-content-between">
-                  <div className="me-3">
+                <div className="playlist-frame-header mw-100 mb-5 p-2 pt-4 d-flex justify-content-between">
+                  <div className="input-combo me-3">
                     <Input
                       placeholder="Empty title"
                       className="mb-3 title-input"
-                      value={playlistDetailsObj[0].Title}
+                      value={playlistDetailsObj[0].Title} 
                       disabled
                     />
                     <TextArea
@@ -80,26 +92,38 @@ export default function ViewPlaylist() {
                       disabled
                     />
                   </div>
-                  <div
-                    className="playlist-cover d-flex align-items-center justify-content-center"
-                    style={{
-                      backgroundImage: `url(${playlistDetailsObj[0].Cover})`,
-                    }}
-                  ></div>
+                  {playlistDetailsObj[0].Cover && (  
+                    coverHeight ? (
+                      <div
+                        className="playlist-cover d-flex align-items-center justify-content-center"
+                        style={{
+                          backgroundImage: `url(${playlistDetailsObj[0].Cover})`,
+                          minWidth: `${coverHeight}px`,
+                        }}
+                      ></div>
+                      ) : (
+                        <div
+                        className="playlist-cover d-flex align-items-center justify-content-center"
+                        style={{
+                          minWidth: `${coverHeight}px`,
+                        }}
+                      >
+                                  <Spin size="large" />
+                      </div>
+                      )        
+                  )}
                 </div>
 
                 <div className="songs">
-            
                   <SongList
-                    addedSongsIdsArray={playlistDetailsObj[0].Songs_Sorted.split(', ')}
+                    addedSongsIdsArray={playlistDetailsObj[0].Songs_Sorted.split(
+                      ", "
+                    )}
                     spotifyAccessToken={spotifyAccessToken}
                     allowSort={false}
                     allowRemove={false}
                   />
-              </div>
-
-
-              
+                </div>
               </div>
               <div className="col-2 h-100"></div>
             </div>

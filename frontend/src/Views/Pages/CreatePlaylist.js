@@ -97,7 +97,7 @@ export default function CreatePlaylist() {
 
   const goBack = () => {
     navigate("/Dashboard");
-  }
+  };
 
   const onSavePlaylist = async () => {
     if (title === "") {
@@ -109,26 +109,24 @@ export default function CreatePlaylist() {
       return;
     }
 
-    console.log("Title: " + title);
-    console.log("Descripiton: " + description);
-    console.log("Tags: " + selectedTags.map((tag) => tag).join(", "));
-
     const requestBody = {
       authorId: userId,
       title: title,
       tags: selectedTags.map((tag) => tag).join(", "), // Assuming selectedTags is an array of objects with an 'id' property
-      date: getCurrentDate()
+      date: getCurrentDate(),
+      visible: 1
     };
-    
+
     if (description) {
       requestBody.description = description;
     }
-    
+
     const result = await ImageCropRef.current.uploadImage();
     if (result) {
-      requestBody.playlistCoverLink = "http://localhost:3001/" + result.filePath;
+      requestBody.playlistCoverLink =
+        "http://localhost:3001/" + result.filePath;
     }
-    
+
     const sortedIds = await songListRef.current.getCurrentSongIdsSorted();
     if (sortedIds) {
       requestBody.sortedSongIds = sortedIds;
@@ -139,7 +137,7 @@ export default function CreatePlaylist() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(requestBody),
     });
-    
+
     const responseData = await response.json();
 
     // Handle response based on status code
@@ -159,22 +157,22 @@ export default function CreatePlaylist() {
     const fetchAccessToken = async () => {
       const accessToken = await getSpotifyAccessToken();
       setSpotifyAccessToken(accessToken);
-      console.log("Fetched AccessToken: " + accessToken);
     };
     fetchAccessToken();
   }, []);
 
   const addSong = async () => {
-    setAddedSongsIdsArray([
-      ...addedSongsIdsArray,
-      await getSong(searchInput, spotifyAccessToken),
-    ]);
+    const newSong = await getSong(searchInput, spotifyAccessToken);
+
+    if (newSong) {
+      setAddedSongsIdsArray([
+        ...addedSongsIdsArray,
+        newSong,
+      ]);
+    }
+
     setSearchInput("");
   };
-
-  useEffect(() => {
-    console.log("Current Added Songs Array: " + addedSongsIdsArray);
-  }, [addedSongsIdsArray]);
 
   return (
     <div
@@ -187,13 +185,12 @@ export default function CreatePlaylist() {
           <div className="row vh100 py-6">
             <div className="col-2 h-100">
               <div onClick={goBack} className="position-fixed back">
-              <FontAwesomeIcon
-                    className="px-3"
-                    fontSize={"32px"}
-                    icon={faBackward}
-                  />
+                <FontAwesomeIcon
+                  className="px-3"
+                  fontSize={"32px"}
+                  icon={faBackward}
+                />
               </div>
-              
             </div>
             <div className="col-8 playlist-frame h-100">
               <div className="playlist-frame-header mb-5 p-2 pt-4 d-flex justify-content-between">
@@ -224,7 +221,7 @@ export default function CreatePlaylist() {
                 <Input
                   placeholder="Add Track by Name ..."
                   className="search-input"
-                  value={searchInput} 
+                  value={searchInput}
                   onKeyPress={(event) => {
                     if (event.key === "Enter") {
                       addSong();
@@ -247,10 +244,10 @@ export default function CreatePlaylist() {
             <div className="col-2 h-100">
               <div onClick={onSavePlaylist} className="position-fixed save">
                 <FontAwesomeIcon
-                    className="px-3"
-                    fontSize={"32px"}
-                    icon={faFloppyDisk}
-                  />
+                  className="px-3"
+                  fontSize={"32px"}
+                  icon={faFloppyDisk}
+                />
               </div>
             </div>
           </div>
