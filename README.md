@@ -1,32 +1,25 @@
 # dj-tool
 
 ## User-Stories
-* Login      (1. Userstory)
-* Sign Up    (2. Userstory)
+* Login
+* Registrieren
+* Profil erstellen
+* Profil bearbeiten
+* Profile anderer ansehen (nur public Playlists)
+* Playlist erstellen
+* Cover für Playlists hinzufügen mit Image-Crop Funktion
+* Song hinzufügen mittels Spotify
+* Playlists bearbeiten
+* Sortierung der Songs mit Abspeicherung der Sortierung
+* Playlists löschen
+* Playlists auf Privat oder Public stellen
+* Song Empfehlungen basierend auf den hinzugefügten Songs
+* Ganze Playlist von Spotify Importieren 
+* Profile folgen, anzeige deren Playlist in Feed
+* Random Playlists anderer ansehen
+* Filterung Playlists nach Description Tags
+* AutoSort
 
-* Show Recent Spotify Playlists
-* Import Spotify Playlist
-* Import Song from Spotify
-* Preview Spotify Songs
-
-* Create Playlist
-* Edit Playlist
-* Delete Playlist
-* Remove Song
-* Sort Playlist
-
-
-
-Filter Playlists?
-Search Playlists?
-Track Recommendations (part of Spotify API)
-Vielleicht ein auto playlist sort
-PRofil anlegen nach Registrierung
-Profil bearbeiten
-
-
-Profil löschen (easy points oder?)
-
-
-? Mobile Responsiveness
-? Man kann viel mit der Api nochmachen (wem folgen, songs liken, ...)
+Userstories: 18 <br>
+CI/CD (Automatisierte Tests/DockerContainer) ✅ <br>
+CodeCoverage (hab nur ein Test) ❌
