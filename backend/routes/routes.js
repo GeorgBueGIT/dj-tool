@@ -19,6 +19,7 @@ import { updatePlaylistVisibility } from '../controller/Update/UpdatePlaylistVis
 import { deletePlaylist } from '../controller/Delete/DeletePlaylist.js';
 import { createProfile } from '../controller/Create/CreateProfile.js';
 import { updateProfile } from '../controller/Update/UpdateProfile.js';
+import { deleteProfile } from '../controller/Delete/DeleteProfile.js';
 
 const router = express.Router();
 
@@ -41,5 +42,6 @@ router.get('/is-playlist-public', isPlaylistPublic);
 router.post('/update-playlist-visibility', updatePlaylistVisibility);
 router.get('/delete-playlist', deletePlaylist);
 router.post('/create-profile', createProfile);
+router.get('/delete-profile', deleteProfile);
 router.post('/update-profile', updateProfile);
 export default router;

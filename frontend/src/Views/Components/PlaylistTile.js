@@ -32,7 +32,7 @@ export default function PlaylistTile({
     }
   }, [tags]);
 
-  const getTheExcerpt = (text, limit = 20) => {
+  const getTheExcerpt = (text, limit = 15) => {
     if (text.length > limit) {
       return text.slice(0, limit) + "...";
     }
@@ -66,19 +66,21 @@ export default function PlaylistTile({
 
   useEffect(() => {
     const checkIfPublic = async () => {
-      try {
-        const response = await fetch(
-          `http://localhost:3001/api/is-playlist-public?playlistId=${playlistId}`,
-          {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-          }
-        );
+      if (playlistId) {
+        try {
+          const response = await fetch(
+            `http://localhost:3001/api/is-playlist-public?playlistId=${playlistId}`,
+            {
+              method: "GET",
+              headers: { "Content-Type": "application/json" },
+            }
+          );
 
-        const data = await response.json();
-        setIsPublic(data.visible);
-      } catch (error) {
-        console.error("Error Checking for if followed:", error);
+          const data = await response.json();
+          setIsPublic(data.visible);
+        } catch (error) {
+          console.error("Error Checking for if followed:", error);
+        }
       }
     };
 
@@ -104,8 +106,12 @@ export default function PlaylistTile({
                   <h3 className="my-0 py-0"> {title} </h3>
                   {toggleVisibility && onDelete && (
                     <div className="playlist-interaction">
-                      {isPublic ? <GlobalOutlined onClick={handleToggleVisabilityClick} /> : <LockOutlined onClick={handleToggleVisabilityClick} />}
-                      <DeleteOutlined onClick={handlePlaylistDeleteClick}/>
+                      {isPublic ? (
+                        <GlobalOutlined onClick={handleToggleVisabilityClick} />
+                      ) : (
+                        <LockOutlined onClick={handleToggleVisabilityClick} />
+                      )}
+                      <DeleteOutlined onClick={handlePlaylistDeleteClick} />
                     </div>
                   )}
                 </div>

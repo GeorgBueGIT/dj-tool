@@ -47,7 +47,7 @@ function TrendingPlaylists({ headerHeight }) {
     if (playlistsData.length === 0) {
       return (
         <div className="h-100 w-100 d-flex align-items-center justify-content-center">
-          <b className="no-entries"> <MehOutlined className="me-3" /> No playlists found! </b>
+          <b className="no-entries"> <MehOutlined className="me-3 my-3" /> No playlists found! </b>
         </div>
       );
     }
@@ -130,7 +130,7 @@ function TrendingPlaylists({ headerHeight }) {
           className="col-12 col-lg-6 h-100 pb-5"
           style={{ paddingTop: headerHeight + "px" }}
         >
-          <div className="content-frame h-100 w-100">
+          <div className="content-frame mh-100 w-100">
             <div className="w-100 px-1 pt-3 row">
               <div className="col">
                 <div

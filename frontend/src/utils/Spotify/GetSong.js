@@ -11,7 +11,7 @@ export const getSong = async (seachQuery = 'Industry Bootleg', accessToken = 'BQ
   try {
     const response = await fetch("https://api.spotify.com/v1/search?q=" + seachQuery + '&type=track&limit=1', songSearchParameters);
     const data = await response.json();
-    return data.tracks.items[0].id;
+    return data.tracks.items[0]?.id;
   } catch (error) {
     console.error("Error fetching Spotify access token:", error);
     return null;

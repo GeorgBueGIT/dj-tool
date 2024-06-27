@@ -8,9 +8,10 @@ import ImageCrop from "../Components/ImageCrop";
 import { getSpotifyAccessToken } from "../../utils/Spotify/GetAccessToken";
 import { getSong } from "../../utils/Spotify/GetSong";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { faFloppyDisk, faReply } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../../Auth/AuthProvider";
 import { getCurrentDate } from "../../utils/GetCurrentDate";
+import Recommendations from "../Components/Recommendations";
 const { TextArea } = Input;
 
 export default function CreatePlaylist() {
@@ -131,7 +132,7 @@ export default function CreatePlaylist() {
       title: title,
       tags: selectedTags.map((tag) => tag).join(", "), // Assuming selectedTags is an array of objects with an 'id' property
       date: getCurrentDate(),
-      visible: 1
+      visible: 1,
     };
 
     if (description) {
@@ -191,6 +192,18 @@ export default function CreatePlaylist() {
     setSearchInput("");
   };
 
+  const removeSong = (id) => {
+    console.log("Removing ID:" + id);
+    setAddedSongsIdsArray((prevArray) =>
+      prevArray.filter((songId) => songId !== id)
+    );
+  };
+
+  const addRecommendation = (id) => {
+    console.log("Add Recommendation:" + id);
+    setAddedSongsIdsArray((prevArray) => [...prevArray, id]);
+  };
+
   return (
     <div
       className="create-playlist d-flex justify-content-center overflow-hidden"
@@ -205,7 +218,7 @@ export default function CreatePlaylist() {
                 <FontAwesomeIcon
                   className="px-3"
                   fontSize={"32px"}
-                  icon={faBackward}
+                  icon={faReply}
                 />
               </div>
             </div>
@@ -227,10 +240,7 @@ export default function CreatePlaylist() {
                   />
                 </div>
                 {coverHeight && (
-                      <ImageCrop
-                        ref={ImageCropRef}
-                        coverHeight={coverHeight}
-                      />
+                  <ImageCrop ref={ImageCropRef} coverHeight={coverHeight} />
                 )}
               </div>
 
@@ -259,6 +269,17 @@ export default function CreatePlaylist() {
                     ref={songListRef}
                     addedSongsIdsArray={addedSongsIdsArray}
                     spotifyAccessToken={spotifyAccessToken}
+                    allowRemove={true}
+                    removeSong={removeSong}
+                  />
+                )}
+              </div>
+              <div className="recommendations">
+                {spotifyAccessToken && addedSongsIdsArray && (
+                  <Recommendations
+                    addedSongsIdsArray={addedSongsIdsArray}
+                    spotifyAccessToken={spotifyAccessToken}
+                    addRecommendation={addRecommendation}
                   />
                 )}
               </div>

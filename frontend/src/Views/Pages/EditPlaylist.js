@@ -204,10 +204,15 @@ export default function CreatePlaylist() {
   }, []);
 
   const addSong = async () => {
-    setAddedSongsIdsArray([
-      ...addedSongsIdsArray,
-      await getSong(searchInput, spotifyAccessToken),
-    ]);
+    const newSong = await getSong(searchInput, spotifyAccessToken);
+
+    if (newSong) {
+      setAddedSongsIdsArray([
+        ...addedSongsIdsArray,
+        newSong,
+      ]);
+    }
+
     setSearchInput("");
   };
 

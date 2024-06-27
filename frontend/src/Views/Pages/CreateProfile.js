@@ -26,7 +26,6 @@ export default function CreateProfile() {
   };
 
   const onSavePlaylist = async () => {
-
     let requestBody = {
       description: textAreaValue,
       userId: userId,
@@ -35,7 +34,8 @@ export default function CreateProfile() {
     const result = await ImageCropRef.current.uploadImage();
     if (result) {
       console.log(result);
-      requestBody.playlistCoverLink = "http://localhost:3001/" + result.filePath;
+      requestBody.playlistCoverLink =
+        "http://localhost:3001/" + result.filePath;
     }
 
     try {
@@ -59,27 +59,29 @@ export default function CreateProfile() {
       className="vh100 d-flex align-items-center justify-content-center"
       id="edit-profile"
     >
-      <div className="row vw100 vh100 py-6">
-        <div className="col-2 h-100"></div>
-        <div className="col-6 offset-1 h-10 d-flex align-items-center">
-          <div className="content-frame mh-100 w-100">
-            <EditProfileDescription
-              userId={userId}
-              getTextAreaValue={getTextAreaValue}
-              ref={ImageCropRef}
-            />
-          </div>
-        </div>{" "}
-        <div className="col-2 h-100">
-          <div onClick={onSavePlaylist} className="position-fixed save">
-            <FontAwesomeIcon
-              className="px-3"
-              fontSize={"32px"}
-              icon={faFloppyDisk}
-            />
+      {userId && (
+        <div className="row vw100 vh100 py-6">
+          <div className="col-2 h-100"></div>
+          <div className="col-6 offset-1 h-10 d-flex align-items-center">
+            <div className="content-frame mh-100 w-100">
+              <EditProfileDescription
+                userId={userId}
+                getTextAreaValue={getTextAreaValue}
+                ref={ImageCropRef}
+              />
+            </div>
+          </div>{" "}
+          <div className="col-2 h-100">
+            <div onClick={onSavePlaylist} className="position-fixed save">
+              <FontAwesomeIcon
+                className="px-3"
+                fontSize={"32px"}
+                icon={faFloppyDisk}
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

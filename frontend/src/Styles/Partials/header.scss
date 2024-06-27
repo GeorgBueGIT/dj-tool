@@ -52,5 +52,37 @@
     .ant-dropdown {
         color: black !important;
     }
+
+    .popup {
+        z-index: 1001;
+        background-color: rgba(129, 129, 129, 0.406);
+    }
+
+    .popup-modal {
+        background-color: black;
+        color: white;
+        width: 20vw;
+        border-radius: 10px;
+    }
+
+    .decide-button {
+        background-color: orange;
+        border-radius: 10px;
+    }
+
+    .decide-button-dark {
+        background-color: rgb(53, 53, 53);
+        border-radius: 10px;
+    }
+
+    .decide-button-dark:hover {
+        background-color: rgb(33, 33, 33);
+        cursor: pointer;
+    }
+
+    .decide-button:hover {
+        background-color: rgba(255, 166, 0, 0.624);
+        cursor: pointer;
+    }
 }
 

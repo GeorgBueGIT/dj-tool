@@ -118,7 +118,6 @@ export default function EditProfile() {
   };
 
   const onSavePlaylist = async () => {
-    
     let requestBody = {
       description: textAreaValue,
       userId: userId,
@@ -126,12 +125,12 @@ export default function EditProfile() {
 
     const result = await ImageCropRef.current.uploadImage();
     if (result) {
-      console.log(result);
-      requestBody.playlistCoverLink = "http://localhost:3001/" + result.filePath;
+      requestBody.playlistCoverLink =
+        "http://localhost:3001/" + result.filePath;
     }
 
     try {
-      const response = await fetch(`http://localhost:3001/api/create-profile`, {
+      const response = await fetch(`http://localhost:3001/api/update-profile`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(requestBody),

@@ -3,16 +3,27 @@ import database from "../../config/database.js";
 export const deleteProfile = (req, res) => {
     const { userId } = req.query;
 
-    const query = `
-    DELETE FROM users
-    WHERE ID = ?
-  `;
+    const deletePlaylistsQuery = `
+        DELETE FROM playlists
+        WHERE Author_ID = ?
+    `;
 
-  database.query(query, [userId], (err) => {
-    if (err) {
-      return res.status(500).json({ error: err.message });
-    }
-    console.log('Deleted Profile!');
-    res.status(200).json({ message: "Successfully Deleted Profile" });
-  });
+    const deleteUserQuery = `
+        DELETE FROM users
+        WHERE ID = ?
+    `;
+
+    database.query(deletePlaylistsQuery, [userId], (err) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+
+        database.query(deleteUserQuery, [userId], (err) => {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+            console.log('Deleted Profile and associated playlists!');
+            res.status(200).json({ message: "Successfully Deleted Profile and associated playlists" });
+        });
+    });
 };

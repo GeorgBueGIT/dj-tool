@@ -13,7 +13,7 @@ export const getRandomPlaylists = async (req, res) => {
       FROM playlists
       JOIN users ON playlists.Author_ID = users.ID
       WHERE playlists.Visible = true
-      AND (FIND_IN_SET('${tagId}', playlists.Tags) > 0 OR FIND_IN_SET('${tagId}', playlists.Tags) > 0)
+      AND (FIND_IN_SET('${tagId}', playlists.Tags) > 0 OR FIND_IN_SET(' ${tagId}', playlists.Tags) > 0)
       ORDER BY RAND()
       LIMIT 10`;
   
