@@ -4,8 +4,8 @@ const querystring = require('querystring');
 
 const router = express.Router();
 
-const client_id = '26097a2bb2cf4187a7d4b449981173ff';
-const client_secret = '970d219fa6284d7f9cd52f9ed9e853a2';
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
 const redirect_uri = 'http://localhost:3001/callback';
 
 router.get('/spotify', (req, res) => {

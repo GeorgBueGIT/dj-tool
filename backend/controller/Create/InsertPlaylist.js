@@ -1,5 +1,5 @@
 import database from "../../config/database.js";
-import config from "../../config/config.js";
+
 
 export const insertPlaylist = (req, res) => {
     const { title, description, visible, date, tags, authorId, playlistCoverLink, sortedSongIds } = req.body;

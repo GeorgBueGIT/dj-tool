@@ -1,5 +1,5 @@
 import database from "../../config/database.js";
-import config from "../../config/config.js";
+
 
 export const getPlaylistById = async (req, res) => {
   const { playlistId } = req.query;

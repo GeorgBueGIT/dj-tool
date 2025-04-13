@@ -1,5 +1,5 @@
 import database from "../../config/database.js";
-import config from "../../config/config.js";
+
 
 export const updatePlaylist = (req, res) => {
     const { title, description, date, tags, playlistId, playlistCoverLink, sortedSongIds } = req.body;

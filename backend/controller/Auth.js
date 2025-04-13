@@ -1,5 +1,4 @@
 import database from "../config/database.js";
-import config from "../config/config.js";
 import jwt from "jsonwebtoken";
 
 export const login = (req, res) => {

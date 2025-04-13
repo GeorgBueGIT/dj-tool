@@ -1,5 +1,4 @@
 import database from "../config/database.js";
-import config from "../config/config.js";
 
 export const register = (req, res) => {
   const { username, password } = req.body;

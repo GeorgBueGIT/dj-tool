@@ -5,7 +5,9 @@ import uploadimage from './UploadImage.js';
 import uploadtest from './uploadTest.js';
 import cors from 'cors';
 import path from 'path';
+import dotenv from 'dotenv';
 
+dotenv.config({ path: '../.env' });
 const __dirname = path.dirname(new URL(import.meta.url).pathname);
 
 const app = express();

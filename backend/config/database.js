@@ -1,11 +1,13 @@
 import mysql from "mysql2";
-import config from './config.js';
+import dotenv from 'dotenv';
+
+dotenv.config({ path: '../.env' });
 
 var con = mysql.createConnection({
-  host: process.env.DB_HOST || config.DB_HOST,
-  user: process.env.DB_USER || config.DB_USER,
-  password: process.env.DB_PASSWORD || config.DB_PASSWORD,
-  database: process.env.DB_NAME || config.DB_NAME,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 con.connect(function (err) {

@@ -1,5 +1,5 @@
 import database from "../../config/database.js";
-import config from "../../config/config.js";
+
 import getUserIdByName from "../../helper/getUserIdByName.js";
 
 export const getAllTags = async (req, res) => {
